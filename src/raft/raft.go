@@ -18,6 +18,7 @@ package raft
 //
 
 import (
+	"container/heap"
 	"math/rand"
 	"sync"
 	"sync/atomic"
@@ -39,6 +40,36 @@ const (
 	Candidate = iota
 )
 
+// An IntHeap is a max-heap of ints.
+type any = interface{}
+type IntHeap []int
+
+func (h IntHeap) Len() int           { return len(h) }
+func (h IntHeap) Less(i, j int) bool { return h[i] > h[j] }
+func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+
+func (h *IntHeap) Push(x any) {
+	// Push and Pop use pointer receivers because they modify the slice's length,
+	// not just its contents.
+	*h = append(*h, x.(int))
+}
+
+func (h *IntHeap) Pop() any {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
 // as each Raft peer becomes aware that successive log entries are
 // committed, the peer should send an ApplyMsg to the service (or
 // tester) on the same server, via the applyCh passed to Make(). set
@@ -54,7 +85,11 @@ type ApplyMsg struct {
 	CommandIndex int
 }
 
-type Log struct{}
+type Log struct {
+	Data  interface{}
+	Term  int
+	Index int
+}
 
 // A Go object implementing a single Raft peer.
 type Raft struct {
@@ -63,6 +98,7 @@ type Raft struct {
 	persister *Persister          // Object to hold this peer's persisted state
 	me        int                 // this peer's index into peers[]
 	dead      int32               // set by Kill()
+	applyCh   chan ApplyMsg
 
 	// Your data here (2A, 2B, 2C).
 	// Look at the paper's Figure 2 for a description of what
@@ -113,6 +149,14 @@ func (rf *Raft) ConvertToFollower(newTerm int) {
 func (rf *Raft) ConvertToLeader() {
 	rf.state = Leader
 	rf.lastReceived = time.Now()
+
+	DPrintf("[%d]: Claimed to be leader.", rf.me)
+
+	// Reinitialize the nextIdx and matchIdx
+	for peer := 0; peer < len(rf.peers); peer++ {
+		rf.peersNextIdx[peer] = len(rf.logs) - 1
+		rf.peersMatchIdx[peer] = -1
+	}
 }
 
 // save Raft's persistent state to stable storage,
@@ -171,11 +215,12 @@ type RequestVoteReply struct {
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	reqTerm, reqCandId := args.Term, args.CandId
+	lastLogIdx, lastLogTerm := args.LastLogIdx, args.LastLogTerm
 
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
-	DPrintf("[%d]: Receive RequestVote message from %d with term %d.", rf.me, reqCandId, reqTerm)
+	// DPrintf("[%d]: Receive RequestVote message from %d with term %d.", rf.me, reqCandId, reqTerm)
 
 	// The request term is behind the current term
 	if rf.currTerm > reqTerm {
@@ -191,7 +236,25 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	reply.Term = rf.currTerm
 	reply.VoteGranted = false
 
-	if rf.votedFor < 0 {
+	// Check for the "up-to-date" condition
+	isUpToDate := true
+
+	curLastLogIdx := len(rf.logs) - 1
+	curLastLogTerm := -1
+
+	if curLastLogIdx >= 0 {
+		curLastLogTerm = rf.logs[curLastLogIdx].Term
+	}
+
+	if curLastLogTerm > lastLogTerm {
+		DPrintf("[%d]: Candidate [%d] has lastLogTerm=%d, but local lastLogTerm=%d. Hence, rejected.", rf.me, reqCandId, lastLogTerm, curLastLogTerm)
+		isUpToDate = false
+	} else if curLastLogTerm == lastLogTerm && curLastLogIdx > lastLogIdx {
+		DPrintf("[%d]: Candidate [%d] has same lastLogTerm, but smaller lastLogIdx[%d < %d]. Hence, rejected.", rf.me, reqCandId, lastLogIdx, curLastLogIdx)
+		isUpToDate = false
+	}
+
+	if rf.votedFor < 0 && isUpToDate {
 		// vote for this candidate
 		DPrintf("[%d]: Voted for %d with term %d.", rf.me, reqCandId, reqTerm)
 		rf.votedFor = reqCandId
@@ -238,11 +301,18 @@ func (rf *Raft) startElection() {
 	rf.mu.Lock()
 	rf.ConvertToCandidate()
 
+	lastLogIdx, lastLogTerm := -1, -1
+
+	if len(rf.logs) > 0 {
+		lastLogIdx = len(rf.logs) - 1
+		lastLogTerm = rf.logs[len(rf.logs)-1].Term
+	}
+
 	args := RequestVoteArgs{
 		Term:        rf.currTerm,
 		CandId:      rf.me,
-		LastLogIdx:  0,
-		LastLogTerm: 0,
+		LastLogIdx:  lastLogIdx,
+		LastLogTerm: lastLogTerm,
 	}
 
 	numVote := 1
@@ -274,7 +344,7 @@ func (rf *Raft) startElection() {
 				_, isLeader := rf.GetState()
 				if !isLeader && (2*numVote >= len(rf.peers)) {
 					rf.ConvertToLeader()
-					go rf.callHeartbeatFunc()
+					go rf.callHeartbeat()
 				}
 
 			}(peer)
@@ -317,6 +387,19 @@ type AppendEntriesArgs struct {
 type AppendEntriesReply struct {
 	Term    int
 	Success bool
+	NextIdx int // index for fast log replication
+}
+
+func (rf *Raft) sendApplyMsg(startIdx, endIdx int) {
+	for i := startIdx + 1; i <= endIdx; i++ {
+		applyMsg := ApplyMsg{
+			CommandValid: true,
+			CommandIndex: i + 1,
+			Command:      rf.logs[i].Data,
+		}
+		DPrintf("[%d]: Sent applyMsg %+v.", rf.me, applyMsg)
+		rf.applyCh <- applyMsg
+	}
 }
 
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
@@ -324,20 +407,71 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	rf.lastReceived = time.Now()
 
-	DPrintf("[%d]: Receive AppendEntries message from %d with term %d.", rf.me, leaderId, reqTerm)
+	DPrintf("[%d]: Receive AppendEntries message from %d with args %+v.", rf.me, leaderId, args)
 
 	if rf.currTerm > reqTerm {
+		DPrintf("[%d]: Current term is larger than received term. currTerm=%d, reqTerm=%d", rf.me, rf.currTerm, reqTerm)
 		reply.Term = rf.currTerm
 		reply.Success = false
 		return
 	}
 
+	rf.lastReceived = time.Now()
+	prevLogIdx, prevLogTerm := args.PrevLogIdx, args.PrevLogTerm
+
+	if prevLogIdx >= 0 {
+		if len(rf.logs) <= prevLogIdx {
+			// the length does not match
+			DPrintf("[%d]: prevLogIdx does not match. len(rf.logs)=%d, args.prevLogIdx=%d", rf.me, len(rf.logs), prevLogIdx)
+			reply.Term = rf.currTerm
+			reply.Success = false
+			reply.NextIdx = len(rf.logs)
+			return
+		} else if rf.logs[prevLogIdx].Term != prevLogTerm {
+			// the term does not match
+			DPrintf("[%d]: prevLogTerm does not match. rf.prevLogTerm=%d, args.prevLogTerm=%d", rf.me, rf.logs[prevLogIdx].Term, prevLogTerm)
+			reply.Term = rf.currTerm
+			reply.Success = false
+
+			nextIdx := prevLogIdx
+
+			for nextIdx > 0 && rf.logs[nextIdx].Term == prevLogTerm {
+				nextIdx -= 1
+			}
+
+			reply.NextIdx = nextIdx
+			DPrintf("[%d]: nextIdx=%d", rf.me, nextIdx)
+			return
+		}
+	}
+
 	if rf.currTerm < reqTerm {
+		DPrintf("[%d]: Received term is larger than currTerm, converting to follower. currTerm=%d, reqTerm=%d", rf.me, rf.currTerm, reqTerm)
 		rf.ConvertToFollower(reqTerm)
 	}
 
+	// Append the entries here
+	appendLogs := args.Entries
+
+	if len(appendLogs) > 0 {
+		startIdx := appendLogs[0].Index
+		// first delete all the entries after startIdx
+		rf.logs = rf.logs[:startIdx]
+
+		// then append the entries to the current logs
+		rf.logs = append(rf.logs, appendLogs...)
+	}
+
+	if args.LeaderCommitIdx > rf.commitIdx {
+		oldCommitIdx := rf.commitIdx
+		rf.commitIdx = min(args.LeaderCommitIdx, len(rf.logs)-1)
+		DPrintf("[%d]: Increment commitIdx from %d to %d", rf.me, oldCommitIdx, rf.commitIdx)
+
+		rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
+	}
+
+	DPrintf("[%d]: Reply success.", rf.me)
 	reply.Term = rf.currTerm
 	reply.Success = true
 	return
@@ -348,42 +482,94 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 	return ok
 }
 
-func (rf *Raft) callHeartbeat(args *AppendEntriesArgs) {
+func (rf *Raft) callHeartbeatPeer(peer int) {
+	if rf.state != Leader {
+		return
+	}
+
+	nextIdx := rf.peersNextIdx[peer]
+	prevLog := Log{
+		Index: -1,
+		Term:  -1,
+	}
+	entries := make([]Log, 0)
+
+	if 0 <= nextIdx && nextIdx < len(rf.logs) {
+		// there are still entries yet to send
+		entries = rf.logs[nextIdx:]
+	}
+
+	if nextIdx > 0 {
+		prevLog = rf.logs[nextIdx-1]
+	}
+
+	args := AppendEntriesArgs{
+		Term:            rf.currTerm,
+		LeaderId:        rf.me,
+		PrevLogIdx:      prevLog.Index,
+		PrevLogTerm:     prevLog.Term,
+		Entries:         entries,
+		LeaderCommitIdx: rf.commitIdx,
+	}
+
+	reply := AppendEntriesReply{}
+	rf.sendAppendEntries(peer, &args, &reply)
+
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	rf.lastSentAppend = time.Now()
+	if reply.Term > rf.currTerm {
+		DPrintf("[%d]: Receive a larger term from other peer. Converting back to follower...", rf.me)
+		rf.ConvertToFollower(reply.Term)
+	} else {
+		// Check the status of the reply
+		if reply.Success {
+			// increment the match and next index
+			rf.peersMatchIdx[peer] = len(rf.logs) - 1
+			rf.peersNextIdx[peer] = len(rf.logs)
+
+			// check how many match idx are larger than commitIdx
+			peerMatchIdx := &IntHeap{}
+			heap.Init(peerMatchIdx)
+
+			for _, matchIdx := range rf.peersMatchIdx {
+				heap.Push(peerMatchIdx, matchIdx)
+			}
+
+			count := 1
+			oldCommitIdx := rf.commitIdx
+			for peerMatchIdx.Len() > 0 {
+				top := heap.Pop(peerMatchIdx).(int)
+
+				if top > rf.commitIdx {
+					count++
+
+					if 2*count >= len(rf.peers) {
+						rf.commitIdx = top
+						break
+					}
+				}
+			}
+
+			rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
+
+		} else {
+			rf.peersNextIdx[peer] = reply.NextIdx
+			go rf.callHeartbeatPeer(peer)
+		}
+	}
+}
+
+func (rf *Raft) callHeartbeat() {
+	rf.lastSentAppend = time.Now()
 	for index := 0; index < len(rf.peers); index++ {
 		if index == rf.me {
 			continue
 		}
 
-		DPrintf("[%d]: Sent heartbeat message to %d.", rf.me, index)
-		go func(peer int) {
-			reply := AppendEntriesReply{}
-			rf.sendAppendEntries(peer, args, &reply)
-
-			rf.mu.Lock()
-			defer rf.mu.Unlock()
-			rf.lastSentAppend = time.Now()
-			if reply.Term > rf.currTerm {
-				rf.state = Follower
-			}
-		}(index)
+		// DPrintf("[%d]: Sent heartbeat message to %d.", rf.me, index)
+		go rf.callHeartbeatPeer(index)
 	}
-}
-
-func (rf *Raft) callHeartbeatFunc() {
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
-	// The leader has been idling for more than 150ms - 300ms
-	heartbeatArgs := AppendEntriesArgs{
-		Term:            rf.currTerm,
-		LeaderId:        rf.me,
-		PrevLogIdx:      0,
-		PrevLogTerm:     0,
-		Entries:         make([]Log, 0),
-		LeaderCommitIdx: 0,
-	}
-
-	rf.lastSentAppend = time.Now()
-	go rf.callHeartbeat(&heartbeatArgs)
 }
 
 func (rf *Raft) heartbeatRoutine() {
@@ -401,7 +587,7 @@ func (rf *Raft) heartbeatRoutine() {
 		}
 
 		if rf.lastSentAppend.Before(startTime) {
-			go rf.callHeartbeatFunc()
+			go rf.callHeartbeat()
 		}
 
 		rf.mu.Unlock()
@@ -426,8 +612,25 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := true
 
 	// Your code here (2B).
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 
-	return index, term, isLeader
+	index = len(rf.logs)
+	term = rf.currTerm
+	isLeader = rf.state == Leader
+
+	if isLeader {
+		// only append to the local logs if this is the leader
+		log := Log{
+			Data:  command,
+			Term:  rf.currTerm,
+			Index: index,
+		}
+		DPrintf("[%d]: Received command %+v from client", rf.me, log)
+		rf.logs = append(rf.logs, log)
+	}
+
+	return index + 1, term, isLeader
 }
 
 // the tester doesn't halt goroutines created by Raft after each test,
@@ -464,13 +667,14 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.peers = peers
 	rf.persister = persister
 	rf.me = me
+	rf.applyCh = applyCh
 
 	// Your initialization code here (2A, 2B, 2C).
 	rf.currTerm = 0
 	rf.votedFor = -1
 	rf.state = Follower
-	rf.logs = make([]Log, len(peers))
-	rf.commitIdx = 0
+	rf.logs = make([]Log, 0)
+	rf.commitIdx = -1
 	rf.lastApplied = 0
 	rf.peersNextIdx = make([]int, len(peers))
 	rf.peersMatchIdx = make([]int, len(peers))

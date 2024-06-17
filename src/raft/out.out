@@ -1,1082 +1,131 @@
-Test (2B): leader backs up quickly over incorrect follower logs ...
-2024/06/03 05:33:44 [0]: Voted for 4 with term 1.
-2024/06/03 05:33:44 [3]: Voted for 4 with term 1.
-2024/06/03 05:33:44 [1]: Voted for 4 with term 1.
-2024/06/03 05:33:44 [4]: Claimed to be leader.
-2024/06/03 05:33:44 [3]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
-2024/06/03 05:33:44 [3]: Reply success.
-2024/06/03 05:33:44 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
-2024/06/03 05:33:44 [1]: Reply success.
-2024/06/03 05:33:44 [2]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
-2024/06/03 05:33:44 [2]: Received term is larger than currTerm, converting to follower. currTerm=0, reqTerm=1
-2024/06/03 05:33:44 [2]: Reply success.
-2024/06/03 05:33:44 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
-2024/06/03 05:33:44 [0]: Reply success.
-2024/06/03 05:33:44 [2]: Voted for 4 with term 1.
-2024/06/03 05:33:44 [4]: Received command {Data:6635643200375767156 Term:1 Index:0} from client
-2024/06/03 05:33:45 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:-1}.
-2024/06/03 05:33:45 [1]: Reply success.
-2024/06/03 05:33:45 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:-1}.
-2024/06/03 05:33:45 [0]: Reply success.
-2024/06/03 05:33:45 [4]: Sent applyMsg {CommandValid:true Command:6635643200375767156 CommandIndex:1}.
-2024/06/03 05:33:45 [2]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [2]: Increment commitIdx from -1 to 0
-2024/06/03 05:33:45 [2]: Sent applyMsg {CommandValid:true Command:6635643200375767156 CommandIndex:1}.
-2024/06/03 05:33:45 [2]: Reply success.
-2024/06/03 05:33:45 [3]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:-1}.
-2024/06/03 05:33:45 [3]: Reply success.
-2024/06/03 05:33:45 [3]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [3]: Increment commitIdx from -1 to 0
-2024/06/03 05:33:45 [3]: Sent applyMsg {CommandValid:true Command:6635643200375767156 CommandIndex:1}.
-2024/06/03 05:33:45 [3]: Reply success.
-2024/06/03 05:33:45 [2]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [2]: Reply success.
-2024/06/03 05:33:45 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [1]: Increment commitIdx from -1 to 0
-2024/06/03 05:33:45 [1]: Sent applyMsg {CommandValid:true Command:6635643200375767156 CommandIndex:1}.
-2024/06/03 05:33:45 [1]: Reply success.
-2024/06/03 05:33:45 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [0]: Increment commitIdx from -1 to 0
-2024/06/03 05:33:45 [0]: Sent applyMsg {CommandValid:true Command:6635643200375767156 CommandIndex:1}.
-2024/06/03 05:33:45 [0]: Reply success.
-2024/06/03 05:33:45 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [1]: Reply success.
-2024/06/03 05:33:45 [2]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [2]: Reply success.
-2024/06/03 05:33:45 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [0]: Reply success.
-2024/06/03 05:33:45 [3]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [3]: Reply success.
-2024/06/03 05:33:45 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [0]: Reply success.
-2024/06/03 05:33:45 [3]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [3]: Reply success.
-2024/06/03 05:33:45 [2]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [2]: Reply success.
-2024/06/03 05:33:45 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [1]: Reply success.
-2024/06/03 05:33:45 [4]: Received command {Data:1114390774885731929 Term:1 Index:1} from client
-2024/06/03 05:33:45 [4]: Received command {Data:3470153249369072826 Term:1 Index:2} from client
-2024/06/03 05:33:45 [4]: Received command {Data:1087386829737700032 Term:1 Index:3} from client
-2024/06/03 05:33:45 [4]: Received command {Data:8034841538069114001 Term:1 Index:4} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6112533615387021390 Term:1 Index:5} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6212375190193301681 Term:1 Index:6} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6201947857587721757 Term:1 Index:7} from client
-2024/06/03 05:33:45 [4]: Received command {Data:5266695459268561267 Term:1 Index:8} from client
-2024/06/03 05:33:45 [4]: Received command {Data:7076554753613059979 Term:1 Index:9} from client
-2024/06/03 05:33:45 [4]: Received command {Data:4567338044680791434 Term:1 Index:10} from client
-2024/06/03 05:33:45 [4]: Received command {Data:3040014767590368851 Term:1 Index:11} from client
-2024/06/03 05:33:45 [4]: Received command {Data:8039303227228800151 Term:1 Index:12} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2931859112378625000 Term:1 Index:13} from client
-2024/06/03 05:33:45 [4]: Received command {Data:704096534788882619 Term:1 Index:14} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2992318865971761033 Term:1 Index:15} from client
-2024/06/03 05:33:45 [4]: Received command {Data:724582628659281920 Term:1 Index:16} from client
-2024/06/03 05:33:45 [4]: Received command {Data:5868643002001247953 Term:1 Index:17} from client
-2024/06/03 05:33:45 [4]: Received command {Data:3499590164841392656 Term:1 Index:18} from client
-2024/06/03 05:33:45 [4]: Received command {Data:4145851574006337032 Term:1 Index:19} from client
-2024/06/03 05:33:45 [4]: Received command {Data:7115524931599150478 Term:1 Index:20} from client
-2024/06/03 05:33:45 [4]: Received command {Data:247966043825459325 Term:1 Index:21} from client
-2024/06/03 05:33:45 [4]: Received command {Data:821549180360927870 Term:1 Index:22} from client
-2024/06/03 05:33:45 [4]: Received command {Data:8459989831069921919 Term:1 Index:23} from client
-2024/06/03 05:33:45 [4]: Received command {Data:9103496952851731822 Term:1 Index:24} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6061165384066204264 Term:1 Index:25} from client
-2024/06/03 05:33:45 [4]: Received command {Data:893428696145144319 Term:1 Index:26} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2968237569334325041 Term:1 Index:27} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6466563869604295233 Term:1 Index:28} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2781518064215722622 Term:1 Index:29} from client
-2024/06/03 05:33:45 [4]: Received command {Data:4757547219197216384 Term:1 Index:30} from client
-2024/06/03 05:33:45 [4]: Received command {Data:7538178704586969954 Term:1 Index:31} from client
-2024/06/03 05:33:45 [4]: Received command {Data:5491838515686134635 Term:1 Index:32} from client
-2024/06/03 05:33:45 [4]: Received command {Data:962365775187590059 Term:1 Index:33} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6623173372210005425 Term:1 Index:34} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2993576792216606484 Term:1 Index:35} from client
-2024/06/03 05:33:45 [4]: Received command {Data:1096075595728801752 Term:1 Index:36} from client
-2024/06/03 05:33:45 [4]: Received command {Data:2248519603942811321 Term:1 Index:37} from client
-2024/06/03 05:33:45 [4]: Received command {Data:683399197173506854 Term:1 Index:38} from client
-2024/06/03 05:33:45 [4]: Received command {Data:7025964321781429939 Term:1 Index:39} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6008752272801063637 Term:1 Index:40} from client
-2024/06/03 05:33:45 [4]: Received command {Data:4995994109414601580 Term:1 Index:41} from client
-2024/06/03 05:33:45 [4]: Received command {Data:32327074052609330 Term:1 Index:42} from client
-2024/06/03 05:33:45 [4]: Received command {Data:3408613395657340433 Term:1 Index:43} from client
-2024/06/03 05:33:45 [4]: Received command {Data:809932869832438363 Term:1 Index:44} from client
-2024/06/03 05:33:45 [4]: Received command {Data:7688253824800988654 Term:1 Index:45} from client
-2024/06/03 05:33:45 [4]: Received command {Data:1587916261629412882 Term:1 Index:46} from client
-2024/06/03 05:33:45 [4]: Received command {Data:4444205880847743965 Term:1 Index:47} from client
-2024/06/03 05:33:45 [4]: Received command {Data:5054449611715697844 Term:1 Index:48} from client
-2024/06/03 05:33:45 [4]: Received command {Data:6077559435503077850 Term:1 Index:49} from client
-2024/06/03 05:33:45 [4]: Received command {Data:5330534272182854810 Term:1 Index:50} from client
-2024/06/03 05:33:45 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:0 PrevLogTerm:1 Entries:[{Data:1114390774885731929 Term:1 Index:1} {Data:3470153249369072826 Term:1 Index:2} {Data:1087386829737700032 Term:1 Index:3} {Data:8034841538069114001 Term:1 Index:4} {Data:6112533615387021390 Term:1 Index:5} {Data:6212375190193301681 Term:1 Index:6} {Data:6201947857587721757 Term:1 Index:7} {Data:5266695459268561267 Term:1 Index:8} {Data:7076554753613059979 Term:1 Index:9} {Data:4567338044680791434 Term:1 Index:10} {Data:3040014767590368851 Term:1 Index:11} {Data:8039303227228800151 Term:1 Index:12} {Data:2931859112378625000 Term:1 Index:13} {Data:704096534788882619 Term:1 Index:14} {Data:2992318865971761033 Term:1 Index:15} {Data:724582628659281920 Term:1 Index:16} {Data:5868643002001247953 Term:1 Index:17} {Data:3499590164841392656 Term:1 Index:18} {Data:4145851574006337032 Term:1 Index:19} {Data:7115524931599150478 Term:1 Index:20} {Data:247966043825459325 Term:1 Index:21} {Data:821549180360927870 Term:1 Index:22} {Data:8459989831069921919 Term:1 Index:23} {Data:9103496952851731822 Term:1 Index:24} {Data:6061165384066204264 Term:1 Index:25} {Data:893428696145144319 Term:1 Index:26} {Data:2968237569334325041 Term:1 Index:27} {Data:6466563869604295233 Term:1 Index:28} {Data:2781518064215722622 Term:1 Index:29} {Data:4757547219197216384 Term:1 Index:30} {Data:7538178704586969954 Term:1 Index:31} {Data:5491838515686134635 Term:1 Index:32} {Data:962365775187590059 Term:1 Index:33} {Data:6623173372210005425 Term:1 Index:34} {Data:2993576792216606484 Term:1 Index:35} {Data:1096075595728801752 Term:1 Index:36} {Data:2248519603942811321 Term:1 Index:37} {Data:683399197173506854 Term:1 Index:38} {Data:7025964321781429939 Term:1 Index:39} {Data:6008752272801063637 Term:1 Index:40} {Data:4995994109414601580 Term:1 Index:41} {Data:32327074052609330 Term:1 Index:42} {Data:3408613395657340433 Term:1 Index:43} {Data:809932869832438363 Term:1 Index:44} {Data:7688253824800988654 Term:1 Index:45} {Data:1587916261629412882 Term:1 Index:46} {Data:4444205880847743965 Term:1 Index:47} {Data:5054449611715697844 Term:1 Index:48} {Data:6077559435503077850 Term:1 Index:49} {Data:5330534272182854810 Term:1 Index:50}] LeaderCommitIdx:0}.
-2024/06/03 05:33:45 [0]: Reply success.
-2024/06/03 05:33:46 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:50 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
-2024/06/03 05:33:46 [0]: Reply success.
-2024/06/03 05:33:47 [3]: Voted for 2 with term 2.
-2024/06/03 05:33:47 [1]: Voted for 2 with term 2.
-2024/06/03 05:33:47 [2]: Claimed to be leader.
-2024/06/03 05:33:47 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:0}.
-2024/06/03 05:33:47 [1]: Reply success.
-2024/06/03 05:33:47 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0}] LeaderCommitIdx:0}.
-2024/06/03 05:33:47 [3]: Reply success.
-2024/06/03 05:33:47 [2]: Received command {Data:502125849290036844 Term:2 Index:1} from client
-2024/06/03 05:33:47 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:0 PrevLogTerm:1 Entries:[{Data:502125849290036844 Term:2 Index:1}] LeaderCommitIdx:0}.
-2024/06/03 05:33:47 [3]: Reply success.
-2024/06/03 05:33:47 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:0 PrevLogTerm:1 Entries:[{Data:502125849290036844 Term:2 Index:1}] LeaderCommitIdx:0}.
-2024/06/03 05:33:47 [1]: Reply success.
-2024/06/03 05:33:47 [2]: Sent applyMsg {CommandValid:true Command:502125849290036844 CommandIndex:2}.
-2024/06/03 05:33:47 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:1 PrevLogTerm:2 Entries:[] LeaderCommitIdx:1}.
-2024/06/03 05:33:47 [1]: Increment commitIdx from 0 to 1
-2024/06/03 05:33:47 [1]: Sent applyMsg {CommandValid:true Command:502125849290036844 CommandIndex:2}.
-2024/06/03 05:33:47 [1]: Reply success.
-2024/06/03 05:33:47 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:1 PrevLogTerm:2 Entries:[] LeaderCommitIdx:1}.
-2024/06/03 05:33:47 [3]: Increment commitIdx from 0 to 1
-2024/06/03 05:33:47 [3]: Sent applyMsg {CommandValid:true Command:502125849290036844 CommandIndex:2}.
-2024/06/03 05:33:47 [3]: Reply success.
-2024/06/03 05:33:47 [2]: Received command {Data:1992291673614796621 Term:2 Index:2} from client
-2024/06/03 05:33:47 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:1 PrevLogTerm:2 Entries:[{Data:1992291673614796621 Term:2 Index:2}] LeaderCommitIdx:1}.
-2024/06/03 05:33:47 [1]: Reply success.
-2024/06/03 05:33:47 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:1 PrevLogTerm:2 Entries:[{Data:1992291673614796621 Term:2 Index:2}] LeaderCommitIdx:1}.
-2024/06/03 05:33:47 [3]: Reply success.
-2024/06/03 05:33:47 [2]: Sent applyMsg {CommandValid:true Command:1992291673614796621 CommandIndex:3}.
-2024/06/03 05:33:47 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:2 PrevLogTerm:2 Entries:[] LeaderCommitIdx:2}.
-2024/06/03 05:33:47 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:2 PrevLogTerm:2 Entries:[] LeaderCommitIdx:2}.
-2024/06/03 05:33:47 [3]: Increment commitIdx from 1 to 2
-2024/06/03 05:33:47 [3]: Sent applyMsg {CommandValid:true Command:1992291673614796621 CommandIndex:3}.
-2024/06/03 05:33:47 [3]: Reply success.
-2024/06/03 05:33:47 [1]: Increment commitIdx from 1 to 2
-2024/06/03 05:33:47 [1]: Sent applyMsg {CommandValid:true Command:1992291673614796621 CommandIndex:3}.
-2024/06/03 05:33:47 [1]: Reply success.
-2024/06/03 05:33:47 [2]: Received command {Data:7546244607934724495 Term:2 Index:3} from client
-2024/06/03 05:33:48 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:2 PrevLogTerm:2 Entries:[{Data:7546244607934724495 Term:2 Index:3}] LeaderCommitIdx:2}.
-2024/06/03 05:33:48 [1]: Reply success.
-2024/06/03 05:33:48 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:2 PrevLogTerm:2 Entries:[{Data:7546244607934724495 Term:2 Index:3}] LeaderCommitIdx:2}.
-2024/06/03 05:33:48 [3]: Reply success.
-2024/06/03 05:33:48 [2]: Sent applyMsg {CommandValid:true Command:7546244607934724495 CommandIndex:4}.
-2024/06/03 05:33:48 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:3 PrevLogTerm:2 Entries:[] LeaderCommitIdx:3}.
-2024/06/03 05:33:48 [1]: Increment commitIdx from 2 to 3
-2024/06/03 05:33:48 [1]: Sent applyMsg {CommandValid:true Command:7546244607934724495 CommandIndex:4}.
-2024/06/03 05:33:48 [1]: Reply success.
-2024/06/03 05:33:48 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:3 PrevLogTerm:2 Entries:[] LeaderCommitIdx:3}.
-2024/06/03 05:33:48 [3]: Increment commitIdx from 2 to 3
-2024/06/03 05:33:48 [3]: Sent applyMsg {CommandValid:true Command:7546244607934724495 CommandIndex:4}.
-2024/06/03 05:33:48 [3]: Reply success.
-2024/06/03 05:33:48 [2]: Received command {Data:2926270294774946949 Term:2 Index:4} from client
-2024/06/03 05:33:48 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:3 PrevLogTerm:2 Entries:[{Data:2926270294774946949 Term:2 Index:4}] LeaderCommitIdx:3}.
-2024/06/03 05:33:48 [1]: Reply success.
-2024/06/03 05:33:48 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:3 PrevLogTerm:2 Entries:[{Data:2926270294774946949 Term:2 Index:4}] LeaderCommitIdx:3}.
-2024/06/03 05:33:48 [3]: Reply success.
-2024/06/03 05:33:48 [2]: Sent applyMsg {CommandValid:true Command:2926270294774946949 CommandIndex:5}.
-2024/06/03 05:33:48 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:4 PrevLogTerm:2 Entries:[] LeaderCommitIdx:4}.
-2024/06/03 05:33:48 [1]: Increment commitIdx from 3 to 4
-2024/06/03 05:33:48 [1]: Sent applyMsg {CommandValid:true Command:2926270294774946949 CommandIndex:5}.
-2024/06/03 05:33:48 [1]: Reply success.
-2024/06/03 05:33:48 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:4 PrevLogTerm:2 Entries:[] LeaderCommitIdx:4}.
-2024/06/03 05:33:48 [3]: Increment commitIdx from 3 to 4
-2024/06/03 05:33:48 [3]: Sent applyMsg {CommandValid:true Command:2926270294774946949 CommandIndex:5}.
-2024/06/03 05:33:48 [3]: Reply success.
-2024/06/03 05:33:48 [2]: Received command {Data:2109885008206412243 Term:2 Index:5} from client
-2024/06/03 05:33:48 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:4 PrevLogTerm:2 Entries:[{Data:2109885008206412243 Term:2 Index:5}] LeaderCommitIdx:4}.
-2024/06/03 05:33:48 [1]: Reply success.
-2024/06/03 05:33:48 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:4 PrevLogTerm:2 Entries:[{Data:2109885008206412243 Term:2 Index:5}] LeaderCommitIdx:4}.
-2024/06/03 05:33:48 [3]: Reply success.
-2024/06/03 05:33:48 [2]: Sent applyMsg {CommandValid:true Command:2109885008206412243 CommandIndex:6}.
-2024/06/03 05:33:49 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:5 PrevLogTerm:2 Entries:[] LeaderCommitIdx:5}.
-2024/06/03 05:33:49 [1]: Increment commitIdx from 4 to 5
-2024/06/03 05:33:49 [1]: Sent applyMsg {CommandValid:true Command:2109885008206412243 CommandIndex:6}.
-2024/06/03 05:33:49 [1]: Reply success.
-2024/06/03 05:33:49 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:5 PrevLogTerm:2 Entries:[] LeaderCommitIdx:5}.
-2024/06/03 05:33:49 [3]: Increment commitIdx from 4 to 5
-2024/06/03 05:33:49 [3]: Sent applyMsg {CommandValid:true Command:2109885008206412243 CommandIndex:6}.
-2024/06/03 05:33:49 [3]: Reply success.
-2024/06/03 05:33:49 [2]: Received command {Data:8565913011296676900 Term:2 Index:6} from client
-2024/06/03 05:33:49 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:5 PrevLogTerm:2 Entries:[{Data:8565913011296676900 Term:2 Index:6}] LeaderCommitIdx:5}.
-2024/06/03 05:33:49 [3]: Reply success.
-2024/06/03 05:33:49 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:5 PrevLogTerm:2 Entries:[{Data:8565913011296676900 Term:2 Index:6}] LeaderCommitIdx:5}.
-2024/06/03 05:33:49 [1]: Reply success.
-2024/06/03 05:33:49 [2]: Sent applyMsg {CommandValid:true Command:8565913011296676900 CommandIndex:7}.
-2024/06/03 05:33:49 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:6 PrevLogTerm:2 Entries:[] LeaderCommitIdx:6}.
-2024/06/03 05:33:49 [3]: Increment commitIdx from 5 to 6
-2024/06/03 05:33:49 [3]: Sent applyMsg {CommandValid:true Command:8565913011296676900 CommandIndex:7}.
-2024/06/03 05:33:49 [3]: Reply success.
-2024/06/03 05:33:49 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:6 PrevLogTerm:2 Entries:[] LeaderCommitIdx:6}.
-2024/06/03 05:33:49 [1]: Increment commitIdx from 5 to 6
-2024/06/03 05:33:49 [1]: Sent applyMsg {CommandValid:true Command:8565913011296676900 CommandIndex:7}.
-2024/06/03 05:33:49 [1]: Reply success.
-2024/06/03 05:33:49 [2]: Received command {Data:8024903572046630685 Term:2 Index:7} from client
-2024/06/03 05:33:49 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:6 PrevLogTerm:2 Entries:[{Data:8024903572046630685 Term:2 Index:7}] LeaderCommitIdx:6}.
-2024/06/03 05:33:49 [1]: Reply success.
-2024/06/03 05:33:49 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:6 PrevLogTerm:2 Entries:[{Data:8024903572046630685 Term:2 Index:7}] LeaderCommitIdx:6}.
-2024/06/03 05:33:49 [3]: Reply success.
-2024/06/03 05:33:49 [2]: Sent applyMsg {CommandValid:true Command:8024903572046630685 CommandIndex:8}.
-2024/06/03 05:33:50 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:7 PrevLogTerm:2 Entries:[] LeaderCommitIdx:7}.
-2024/06/03 05:33:50 [1]: Increment commitIdx from 6 to 7
-2024/06/03 05:33:50 [1]: Sent applyMsg {CommandValid:true Command:8024903572046630685 CommandIndex:8}.
-2024/06/03 05:33:50 [1]: Reply success.
-2024/06/03 05:33:50 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:7 PrevLogTerm:2 Entries:[] LeaderCommitIdx:7}.
-2024/06/03 05:33:50 [3]: Increment commitIdx from 6 to 7
-2024/06/03 05:33:50 [3]: Sent applyMsg {CommandValid:true Command:8024903572046630685 CommandIndex:8}.
-2024/06/03 05:33:50 [3]: Reply success.
-2024/06/03 05:33:50 [2]: Received command {Data:7600043616178894600 Term:2 Index:8} from client
-2024/06/03 05:33:50 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:7 PrevLogTerm:2 Entries:[{Data:7600043616178894600 Term:2 Index:8}] LeaderCommitIdx:7}.
-2024/06/03 05:33:50 [1]: Reply success.
-2024/06/03 05:33:50 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:7 PrevLogTerm:2 Entries:[{Data:7600043616178894600 Term:2 Index:8}] LeaderCommitIdx:7}.
-2024/06/03 05:33:50 [3]: Reply success.
-2024/06/03 05:33:50 [2]: Sent applyMsg {CommandValid:true Command:7600043616178894600 CommandIndex:9}.
-2024/06/03 05:33:50 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:8 PrevLogTerm:2 Entries:[] LeaderCommitIdx:8}.
-2024/06/03 05:33:50 [1]: Increment commitIdx from 7 to 8
-2024/06/03 05:33:50 [1]: Sent applyMsg {CommandValid:true Command:7600043616178894600 CommandIndex:9}.
-2024/06/03 05:33:50 [1]: Reply success.
-2024/06/03 05:33:50 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:8 PrevLogTerm:2 Entries:[] LeaderCommitIdx:8}.
-2024/06/03 05:33:50 [3]: Increment commitIdx from 7 to 8
-2024/06/03 05:33:50 [3]: Sent applyMsg {CommandValid:true Command:7600043616178894600 CommandIndex:9}.
-2024/06/03 05:33:50 [3]: Reply success.
-2024/06/03 05:33:50 [2]: Received command {Data:5796852758759444361 Term:2 Index:9} from client
-2024/06/03 05:33:50 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:8 PrevLogTerm:2 Entries:[{Data:5796852758759444361 Term:2 Index:9}] LeaderCommitIdx:8}.
-2024/06/03 05:33:50 [1]: Reply success.
-2024/06/03 05:33:50 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:8 PrevLogTerm:2 Entries:[{Data:5796852758759444361 Term:2 Index:9}] LeaderCommitIdx:8}.
-2024/06/03 05:33:50 [3]: Reply success.
-2024/06/03 05:33:50 [2]: Sent applyMsg {CommandValid:true Command:5796852758759444361 CommandIndex:10}.
-2024/06/03 05:33:51 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:9 PrevLogTerm:2 Entries:[] LeaderCommitIdx:9}.
-2024/06/03 05:33:51 [1]: Increment commitIdx from 8 to 9
-2024/06/03 05:33:51 [1]: Sent applyMsg {CommandValid:true Command:5796852758759444361 CommandIndex:10}.
-2024/06/03 05:33:51 [1]: Reply success.
-2024/06/03 05:33:51 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:9 PrevLogTerm:2 Entries:[] LeaderCommitIdx:9}.
-2024/06/03 05:33:51 [3]: Increment commitIdx from 8 to 9
-2024/06/03 05:33:51 [3]: Sent applyMsg {CommandValid:true Command:5796852758759444361 CommandIndex:10}.
-2024/06/03 05:33:51 [3]: Reply success.
-2024/06/03 05:33:51 [2]: Received command {Data:7041053384097866752 Term:2 Index:10} from client
-2024/06/03 05:33:51 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:9 PrevLogTerm:2 Entries:[{Data:7041053384097866752 Term:2 Index:10}] LeaderCommitIdx:9}.
-2024/06/03 05:33:51 [3]: Reply success.
-2024/06/03 05:33:51 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:9 PrevLogTerm:2 Entries:[{Data:7041053384097866752 Term:2 Index:10}] LeaderCommitIdx:9}.
-2024/06/03 05:33:51 [1]: Reply success.
-2024/06/03 05:33:51 [2]: Sent applyMsg {CommandValid:true Command:7041053384097866752 CommandIndex:11}.
-2024/06/03 05:33:51 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:10 PrevLogTerm:2 Entries:[] LeaderCommitIdx:10}.
-2024/06/03 05:33:51 [3]: Increment commitIdx from 9 to 10
-2024/06/03 05:33:51 [3]: Sent applyMsg {CommandValid:true Command:7041053384097866752 CommandIndex:11}.
-2024/06/03 05:33:51 [3]: Reply success.
-2024/06/03 05:33:51 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:10 PrevLogTerm:2 Entries:[] LeaderCommitIdx:10}.
-2024/06/03 05:33:51 [1]: Increment commitIdx from 9 to 10
-2024/06/03 05:33:51 [1]: Sent applyMsg {CommandValid:true Command:7041053384097866752 CommandIndex:11}.
-2024/06/03 05:33:51 [1]: Reply success.
-2024/06/03 05:33:51 [2]: Received command {Data:6319164404675960592 Term:2 Index:11} from client
-2024/06/03 05:33:51 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:10 PrevLogTerm:2 Entries:[{Data:6319164404675960592 Term:2 Index:11}] LeaderCommitIdx:10}.
-2024/06/03 05:33:51 [1]: Reply success.
-2024/06/03 05:33:51 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:10 PrevLogTerm:2 Entries:[{Data:6319164404675960592 Term:2 Index:11}] LeaderCommitIdx:10}.
-2024/06/03 05:33:51 [3]: Reply success.
-2024/06/03 05:33:51 [2]: Sent applyMsg {CommandValid:true Command:6319164404675960592 CommandIndex:12}.
-2024/06/03 05:33:52 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:11 PrevLogTerm:2 Entries:[] LeaderCommitIdx:11}.
-2024/06/03 05:33:52 [3]: Increment commitIdx from 10 to 11
-2024/06/03 05:33:52 [3]: Sent applyMsg {CommandValid:true Command:6319164404675960592 CommandIndex:12}.
-2024/06/03 05:33:52 [3]: Reply success.
-2024/06/03 05:33:52 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:11 PrevLogTerm:2 Entries:[] LeaderCommitIdx:11}.
-2024/06/03 05:33:52 [1]: Increment commitIdx from 10 to 11
-2024/06/03 05:33:52 [1]: Sent applyMsg {CommandValid:true Command:6319164404675960592 CommandIndex:12}.
-2024/06/03 05:33:52 [1]: Reply success.
-2024/06/03 05:33:52 [2]: Received command {Data:2489481154097392513 Term:2 Index:12} from client
-2024/06/03 05:33:52 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:11 PrevLogTerm:2 Entries:[{Data:2489481154097392513 Term:2 Index:12}] LeaderCommitIdx:11}.
-2024/06/03 05:33:52 [3]: Reply success.
-2024/06/03 05:33:52 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:11 PrevLogTerm:2 Entries:[{Data:2489481154097392513 Term:2 Index:12}] LeaderCommitIdx:11}.
-2024/06/03 05:33:52 [1]: Reply success.
-2024/06/03 05:33:52 [2]: Sent applyMsg {CommandValid:true Command:2489481154097392513 CommandIndex:13}.
-2024/06/03 05:33:52 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:12 PrevLogTerm:2 Entries:[] LeaderCommitIdx:12}.
-2024/06/03 05:33:52 [1]: Increment commitIdx from 11 to 12
-2024/06/03 05:33:52 [1]: Sent applyMsg {CommandValid:true Command:2489481154097392513 CommandIndex:13}.
-2024/06/03 05:33:52 [1]: Reply success.
-2024/06/03 05:33:52 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:12 PrevLogTerm:2 Entries:[] LeaderCommitIdx:12}.
-2024/06/03 05:33:52 [3]: Increment commitIdx from 11 to 12
-2024/06/03 05:33:52 [3]: Sent applyMsg {CommandValid:true Command:2489481154097392513 CommandIndex:13}.
-2024/06/03 05:33:52 [3]: Reply success.
-2024/06/03 05:33:52 [2]: Received command {Data:5853768261447319658 Term:2 Index:13} from client
-2024/06/03 05:33:52 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:12 PrevLogTerm:2 Entries:[{Data:5853768261447319658 Term:2 Index:13}] LeaderCommitIdx:12}.
-2024/06/03 05:33:52 [1]: Reply success.
-2024/06/03 05:33:52 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:12 PrevLogTerm:2 Entries:[{Data:5853768261447319658 Term:2 Index:13}] LeaderCommitIdx:12}.
-2024/06/03 05:33:52 [3]: Reply success.
-2024/06/03 05:33:52 [2]: Sent applyMsg {CommandValid:true Command:5853768261447319658 CommandIndex:14}.
-2024/06/03 05:33:52 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:13 PrevLogTerm:2 Entries:[] LeaderCommitIdx:13}.
-2024/06/03 05:33:52 [3]: Increment commitIdx from 12 to 13
-2024/06/03 05:33:52 [3]: Sent applyMsg {CommandValid:true Command:5853768261447319658 CommandIndex:14}.
-2024/06/03 05:33:52 [3]: Reply success.
-2024/06/03 05:33:52 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:13 PrevLogTerm:2 Entries:[] LeaderCommitIdx:13}.
-2024/06/03 05:33:52 [1]: Increment commitIdx from 12 to 13
-2024/06/03 05:33:52 [1]: Sent applyMsg {CommandValid:true Command:5853768261447319658 CommandIndex:14}.
-2024/06/03 05:33:52 [1]: Reply success.
-2024/06/03 05:33:52 [2]: Received command {Data:2840781794452177465 Term:2 Index:14} from client
-2024/06/03 05:33:53 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:13 PrevLogTerm:2 Entries:[{Data:2840781794452177465 Term:2 Index:14}] LeaderCommitIdx:13}.
-2024/06/03 05:33:53 [1]: Reply success.
-2024/06/03 05:33:53 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:13 PrevLogTerm:2 Entries:[{Data:2840781794452177465 Term:2 Index:14}] LeaderCommitIdx:13}.
-2024/06/03 05:33:53 [3]: Reply success.
-2024/06/03 05:33:53 [2]: Sent applyMsg {CommandValid:true Command:2840781794452177465 CommandIndex:15}.
-2024/06/03 05:33:53 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:14 PrevLogTerm:2 Entries:[] LeaderCommitIdx:14}.
-2024/06/03 05:33:53 [1]: Increment commitIdx from 13 to 14
-2024/06/03 05:33:53 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:14 PrevLogTerm:2 Entries:[] LeaderCommitIdx:14}.
-2024/06/03 05:33:53 [3]: Increment commitIdx from 13 to 14
-2024/06/03 05:33:53 [3]: Sent applyMsg {CommandValid:true Command:2840781794452177465 CommandIndex:15}.
-2024/06/03 05:33:53 [3]: Reply success.
-2024/06/03 05:33:53 [1]: Sent applyMsg {CommandValid:true Command:2840781794452177465 CommandIndex:15}.
-2024/06/03 05:33:53 [1]: Reply success.
-2024/06/03 05:33:53 [2]: Received command {Data:8063484963242378226 Term:2 Index:15} from client
-2024/06/03 05:33:53 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:14 PrevLogTerm:2 Entries:[{Data:8063484963242378226 Term:2 Index:15}] LeaderCommitIdx:14}.
-2024/06/03 05:33:53 [1]: Reply success.
-2024/06/03 05:33:53 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:14 PrevLogTerm:2 Entries:[{Data:8063484963242378226 Term:2 Index:15}] LeaderCommitIdx:14}.
-2024/06/03 05:33:53 [3]: Reply success.
-2024/06/03 05:33:53 [2]: Sent applyMsg {CommandValid:true Command:8063484963242378226 CommandIndex:16}.
-2024/06/03 05:33:54 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:15 PrevLogTerm:2 Entries:[] LeaderCommitIdx:15}.
-2024/06/03 05:33:54 [1]: Increment commitIdx from 14 to 15
-2024/06/03 05:33:54 [1]: Sent applyMsg {CommandValid:true Command:8063484963242378226 CommandIndex:16}.
-2024/06/03 05:33:54 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:15 PrevLogTerm:2 Entries:[] LeaderCommitIdx:15}.
-2024/06/03 05:33:54 [3]: Increment commitIdx from 14 to 15
-2024/06/03 05:33:54 [3]: Sent applyMsg {CommandValid:true Command:8063484963242378226 CommandIndex:16}.
-2024/06/03 05:33:54 [3]: Reply success.
-2024/06/03 05:33:54 [1]: Reply success.
-2024/06/03 05:33:54 [2]: Received command {Data:6745364638649828872 Term:2 Index:16} from client
-2024/06/03 05:33:54 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:15 PrevLogTerm:2 Entries:[{Data:6745364638649828872 Term:2 Index:16}] LeaderCommitIdx:15}.
-2024/06/03 05:33:54 [1]: Reply success.
-2024/06/03 05:33:54 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:15 PrevLogTerm:2 Entries:[{Data:6745364638649828872 Term:2 Index:16}] LeaderCommitIdx:15}.
-2024/06/03 05:33:54 [3]: Reply success.
-2024/06/03 05:33:54 [2]: Sent applyMsg {CommandValid:true Command:6745364638649828872 CommandIndex:17}.
-2024/06/03 05:33:54 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:16 PrevLogTerm:2 Entries:[] LeaderCommitIdx:16}.
-2024/06/03 05:33:54 [1]: Increment commitIdx from 15 to 16
-2024/06/03 05:33:54 [1]: Sent applyMsg {CommandValid:true Command:6745364638649828872 CommandIndex:17}.
-2024/06/03 05:33:54 [1]: Reply success.
-2024/06/03 05:33:54 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:16 PrevLogTerm:2 Entries:[] LeaderCommitIdx:16}.
-2024/06/03 05:33:54 [3]: Increment commitIdx from 15 to 16
-2024/06/03 05:33:54 [3]: Sent applyMsg {CommandValid:true Command:6745364638649828872 CommandIndex:17}.
-2024/06/03 05:33:54 [3]: Reply success.
-2024/06/03 05:33:54 [2]: Received command {Data:5671905758675986772 Term:2 Index:17} from client
-2024/06/03 05:33:55 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:16 PrevLogTerm:2 Entries:[{Data:5671905758675986772 Term:2 Index:17}] LeaderCommitIdx:16}.
-2024/06/03 05:33:55 [3]: Reply success.
-2024/06/03 05:33:55 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:16 PrevLogTerm:2 Entries:[{Data:5671905758675986772 Term:2 Index:17}] LeaderCommitIdx:16}.
-2024/06/03 05:33:55 [1]: Reply success.
-2024/06/03 05:33:55 [2]: Sent applyMsg {CommandValid:true Command:5671905758675986772 CommandIndex:18}.
-2024/06/03 05:33:55 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:17 PrevLogTerm:2 Entries:[] LeaderCommitIdx:17}.
-2024/06/03 05:33:55 [1]: Increment commitIdx from 16 to 17
-2024/06/03 05:33:55 [1]: Sent applyMsg {CommandValid:true Command:5671905758675986772 CommandIndex:18}.
-2024/06/03 05:33:55 [1]: Reply success.
-2024/06/03 05:33:55 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:17 PrevLogTerm:2 Entries:[] LeaderCommitIdx:17}.
-2024/06/03 05:33:55 [3]: Increment commitIdx from 16 to 17
-2024/06/03 05:33:55 [3]: Sent applyMsg {CommandValid:true Command:5671905758675986772 CommandIndex:18}.
-2024/06/03 05:33:55 [3]: Reply success.
-2024/06/03 05:33:55 [2]: Received command {Data:115813183520434480 Term:2 Index:18} from client
-2024/06/03 05:33:55 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:17 PrevLogTerm:2 Entries:[{Data:115813183520434480 Term:2 Index:18}] LeaderCommitIdx:17}.
-2024/06/03 05:33:55 [1]: Reply success.
-2024/06/03 05:33:55 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:17 PrevLogTerm:2 Entries:[{Data:115813183520434480 Term:2 Index:18}] LeaderCommitIdx:17}.
-2024/06/03 05:33:55 [3]: Reply success.
-2024/06/03 05:33:55 [2]: Sent applyMsg {CommandValid:true Command:115813183520434480 CommandIndex:19}.
-2024/06/03 05:33:56 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:18 PrevLogTerm:2 Entries:[] LeaderCommitIdx:18}.
-2024/06/03 05:33:56 [1]: Increment commitIdx from 17 to 18
-2024/06/03 05:33:56 [1]: Sent applyMsg {CommandValid:true Command:115813183520434480 CommandIndex:19}.
-2024/06/03 05:33:56 [1]: Reply success.
-2024/06/03 05:33:56 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:18 PrevLogTerm:2 Entries:[] LeaderCommitIdx:18}.
-2024/06/03 05:33:56 [3]: Increment commitIdx from 17 to 18
-2024/06/03 05:33:56 [3]: Sent applyMsg {CommandValid:true Command:115813183520434480 CommandIndex:19}.
-2024/06/03 05:33:56 [3]: Reply success.
-2024/06/03 05:33:56 [2]: Received command {Data:2020489239658710405 Term:2 Index:19} from client
-2024/06/03 05:33:56 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:18 PrevLogTerm:2 Entries:[{Data:2020489239658710405 Term:2 Index:19}] LeaderCommitIdx:18}.
-2024/06/03 05:33:56 [1]: Reply success.
-2024/06/03 05:33:56 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:18 PrevLogTerm:2 Entries:[{Data:2020489239658710405 Term:2 Index:19}] LeaderCommitIdx:18}.
-2024/06/03 05:33:56 [3]: Reply success.
-2024/06/03 05:33:56 [2]: Sent applyMsg {CommandValid:true Command:2020489239658710405 CommandIndex:20}.
-2024/06/03 05:33:56 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:19 PrevLogTerm:2 Entries:[] LeaderCommitIdx:19}.
-2024/06/03 05:33:56 [1]: Increment commitIdx from 18 to 19
-2024/06/03 05:33:56 [1]: Sent applyMsg {CommandValid:true Command:2020489239658710405 CommandIndex:20}.
-2024/06/03 05:33:56 [1]: Reply success.
-2024/06/03 05:33:56 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:19 PrevLogTerm:2 Entries:[] LeaderCommitIdx:19}.
-2024/06/03 05:33:56 [3]: Increment commitIdx from 18 to 19
-2024/06/03 05:33:56 [3]: Sent applyMsg {CommandValid:true Command:2020489239658710405 CommandIndex:20}.
-2024/06/03 05:33:56 [3]: Reply success.
-2024/06/03 05:33:56 [2]: Received command {Data:5096688827659430811 Term:2 Index:20} from client
-2024/06/03 05:33:57 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:19 PrevLogTerm:2 Entries:[{Data:5096688827659430811 Term:2 Index:20}] LeaderCommitIdx:19}.
-2024/06/03 05:33:57 [1]: Reply success.
-2024/06/03 05:33:57 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:19 PrevLogTerm:2 Entries:[{Data:5096688827659430811 Term:2 Index:20}] LeaderCommitIdx:19}.
-2024/06/03 05:33:57 [3]: Reply success.
-2024/06/03 05:33:57 [2]: Sent applyMsg {CommandValid:true Command:5096688827659430811 CommandIndex:21}.
-2024/06/03 05:33:57 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:20 PrevLogTerm:2 Entries:[] LeaderCommitIdx:20}.
-2024/06/03 05:33:57 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:20 PrevLogTerm:2 Entries:[] LeaderCommitIdx:20}.
-2024/06/03 05:33:57 [3]: Increment commitIdx from 19 to 20
-2024/06/03 05:33:57 [3]: Sent applyMsg {CommandValid:true Command:5096688827659430811 CommandIndex:21}.
-2024/06/03 05:33:57 [3]: Reply success.
-2024/06/03 05:33:57 [1]: Increment commitIdx from 19 to 20
-2024/06/03 05:33:57 [1]: Sent applyMsg {CommandValid:true Command:5096688827659430811 CommandIndex:21}.
-2024/06/03 05:33:57 [1]: Reply success.
-2024/06/03 05:33:57 [2]: Received command {Data:4287789297540438124 Term:2 Index:21} from client
-2024/06/03 05:33:57 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:20 PrevLogTerm:2 Entries:[{Data:4287789297540438124 Term:2 Index:21}] LeaderCommitIdx:20}.
-2024/06/03 05:33:57 [1]: Reply success.
-2024/06/03 05:33:57 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:20 PrevLogTerm:2 Entries:[{Data:4287789297540438124 Term:2 Index:21}] LeaderCommitIdx:20}.
-2024/06/03 05:33:57 [3]: Reply success.
-2024/06/03 05:33:57 [2]: Sent applyMsg {CommandValid:true Command:4287789297540438124 CommandIndex:22}.
-2024/06/03 05:33:57 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:21 PrevLogTerm:2 Entries:[] LeaderCommitIdx:21}.
-2024/06/03 05:33:57 [3]: Increment commitIdx from 20 to 21
-2024/06/03 05:33:57 [3]: Sent applyMsg {CommandValid:true Command:4287789297540438124 CommandIndex:22}.
-2024/06/03 05:33:57 [3]: Reply success.
-2024/06/03 05:33:57 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:21 PrevLogTerm:2 Entries:[] LeaderCommitIdx:21}.
-2024/06/03 05:33:57 [1]: Increment commitIdx from 20 to 21
-2024/06/03 05:33:57 [1]: Sent applyMsg {CommandValid:true Command:4287789297540438124 CommandIndex:22}.
-2024/06/03 05:33:57 [1]: Reply success.
-2024/06/03 05:33:57 [2]: Received command {Data:6091657695715568496 Term:2 Index:22} from client
-2024/06/03 05:33:58 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:21 PrevLogTerm:2 Entries:[{Data:6091657695715568496 Term:2 Index:22}] LeaderCommitIdx:21}.
-2024/06/03 05:33:58 [1]: Reply success.
-2024/06/03 05:33:58 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:21 PrevLogTerm:2 Entries:[{Data:6091657695715568496 Term:2 Index:22}] LeaderCommitIdx:21}.
-2024/06/03 05:33:58 [3]: Reply success.
-2024/06/03 05:33:58 [2]: Sent applyMsg {CommandValid:true Command:6091657695715568496 CommandIndex:23}.
-2024/06/03 05:33:58 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:22 PrevLogTerm:2 Entries:[] LeaderCommitIdx:22}.
-2024/06/03 05:33:58 [1]: Increment commitIdx from 21 to 22
-2024/06/03 05:33:58 [1]: Sent applyMsg {CommandValid:true Command:6091657695715568496 CommandIndex:23}.
-2024/06/03 05:33:58 [1]: Reply success.
-2024/06/03 05:33:58 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:22 PrevLogTerm:2 Entries:[] LeaderCommitIdx:22}.
-2024/06/03 05:33:58 [3]: Increment commitIdx from 21 to 22
-2024/06/03 05:33:58 [3]: Sent applyMsg {CommandValid:true Command:6091657695715568496 CommandIndex:23}.
-2024/06/03 05:33:58 [3]: Reply success.
-2024/06/03 05:33:58 [2]: Received command {Data:6926798787931591040 Term:2 Index:23} from client
-2024/06/03 05:33:58 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:22 PrevLogTerm:2 Entries:[{Data:6926798787931591040 Term:2 Index:23}] LeaderCommitIdx:22}.
-2024/06/03 05:33:58 [1]: Reply success.
-2024/06/03 05:33:58 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:22 PrevLogTerm:2 Entries:[{Data:6926798787931591040 Term:2 Index:23}] LeaderCommitIdx:22}.
-2024/06/03 05:33:58 [3]: Reply success.
-2024/06/03 05:33:58 [2]: Sent applyMsg {CommandValid:true Command:6926798787931591040 CommandIndex:24}.
-2024/06/03 05:33:59 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:23 PrevLogTerm:2 Entries:[] LeaderCommitIdx:23}.
-2024/06/03 05:33:59 [1]: Increment commitIdx from 22 to 23
-2024/06/03 05:33:59 [1]: Sent applyMsg {CommandValid:true Command:6926798787931591040 CommandIndex:24}.
-2024/06/03 05:33:59 [1]: Reply success.
-2024/06/03 05:33:59 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:23 PrevLogTerm:2 Entries:[] LeaderCommitIdx:23}.
-2024/06/03 05:33:59 [3]: Increment commitIdx from 22 to 23
-2024/06/03 05:33:59 [3]: Sent applyMsg {CommandValid:true Command:6926798787931591040 CommandIndex:24}.
-2024/06/03 05:33:59 [3]: Reply success.
-2024/06/03 05:33:59 [2]: Received command {Data:5649179750942649505 Term:2 Index:24} from client
-2024/06/03 05:33:59 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:23 PrevLogTerm:2 Entries:[{Data:5649179750942649505 Term:2 Index:24}] LeaderCommitIdx:23}.
-2024/06/03 05:33:59 [1]: Reply success.
-2024/06/03 05:33:59 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:23 PrevLogTerm:2 Entries:[{Data:5649179750942649505 Term:2 Index:24}] LeaderCommitIdx:23}.
-2024/06/03 05:33:59 [3]: Reply success.
-2024/06/03 05:33:59 [2]: Sent applyMsg {CommandValid:true Command:5649179750942649505 CommandIndex:25}.
-2024/06/03 05:33:59 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:24 PrevLogTerm:2 Entries:[] LeaderCommitIdx:24}.
-2024/06/03 05:33:59 [1]: Increment commitIdx from 23 to 24
-2024/06/03 05:33:59 [1]: Sent applyMsg {CommandValid:true Command:5649179750942649505 CommandIndex:25}.
-2024/06/03 05:33:59 [1]: Reply success.
-2024/06/03 05:33:59 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:24 PrevLogTerm:2 Entries:[] LeaderCommitIdx:24}.
-2024/06/03 05:33:59 [3]: Increment commitIdx from 23 to 24
-2024/06/03 05:33:59 [3]: Sent applyMsg {CommandValid:true Command:5649179750942649505 CommandIndex:25}.
-2024/06/03 05:33:59 [3]: Reply success.
-2024/06/03 05:33:59 [2]: Received command {Data:3443043807411499732 Term:2 Index:25} from client
-2024/06/03 05:34:00 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:24 PrevLogTerm:2 Entries:[{Data:3443043807411499732 Term:2 Index:25}] LeaderCommitIdx:24}.
-2024/06/03 05:34:00 [1]: Reply success.
-2024/06/03 05:34:00 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:24 PrevLogTerm:2 Entries:[{Data:3443043807411499732 Term:2 Index:25}] LeaderCommitIdx:24}.
-2024/06/03 05:34:00 [3]: Reply success.
-2024/06/03 05:34:00 [2]: Sent applyMsg {CommandValid:true Command:3443043807411499732 CommandIndex:26}.
-2024/06/03 05:34:00 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:25 PrevLogTerm:2 Entries:[] LeaderCommitIdx:25}.
-2024/06/03 05:34:00 [1]: Increment commitIdx from 24 to 25
-2024/06/03 05:34:00 [1]: Sent applyMsg {CommandValid:true Command:3443043807411499732 CommandIndex:26}.
-2024/06/03 05:34:00 [1]: Reply success.
-2024/06/03 05:34:00 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:25 PrevLogTerm:2 Entries:[] LeaderCommitIdx:25}.
-2024/06/03 05:34:00 [3]: Increment commitIdx from 24 to 25
-2024/06/03 05:34:00 [3]: Sent applyMsg {CommandValid:true Command:3443043807411499732 CommandIndex:26}.
-2024/06/03 05:34:00 [3]: Reply success.
-2024/06/03 05:34:00 [2]: Received command {Data:1147510330755256207 Term:2 Index:26} from client
-2024/06/03 05:34:01 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:25 PrevLogTerm:2 Entries:[{Data:1147510330755256207 Term:2 Index:26}] LeaderCommitIdx:25}.
-2024/06/03 05:34:01 [1]: Reply success.
-2024/06/03 05:34:01 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:25 PrevLogTerm:2 Entries:[{Data:1147510330755256207 Term:2 Index:26}] LeaderCommitIdx:25}.
-2024/06/03 05:34:01 [3]: Reply success.
-2024/06/03 05:34:01 [2]: Sent applyMsg {CommandValid:true Command:1147510330755256207 CommandIndex:27}.
-2024/06/03 05:34:01 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:26 PrevLogTerm:2 Entries:[] LeaderCommitIdx:26}.
-2024/06/03 05:34:01 [1]: Increment commitIdx from 25 to 26
-2024/06/03 05:34:01 [1]: Sent applyMsg {CommandValid:true Command:1147510330755256207 CommandIndex:27}.
-2024/06/03 05:34:01 [1]: Reply success.
-2024/06/03 05:34:01 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:26 PrevLogTerm:2 Entries:[] LeaderCommitIdx:26}.
-2024/06/03 05:34:01 [3]: Increment commitIdx from 25 to 26
-2024/06/03 05:34:01 [3]: Sent applyMsg {CommandValid:true Command:1147510330755256207 CommandIndex:27}.
-2024/06/03 05:34:01 [3]: Reply success.
-2024/06/03 05:34:01 [2]: Received command {Data:4174559459274058537 Term:2 Index:27} from client
-2024/06/03 05:34:01 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:26 PrevLogTerm:2 Entries:[{Data:4174559459274058537 Term:2 Index:27}] LeaderCommitIdx:26}.
-2024/06/03 05:34:01 [1]: Reply success.
-2024/06/03 05:34:01 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:26 PrevLogTerm:2 Entries:[{Data:4174559459274058537 Term:2 Index:27}] LeaderCommitIdx:26}.
-2024/06/03 05:34:01 [3]: Reply success.
-2024/06/03 05:34:01 [2]: Sent applyMsg {CommandValid:true Command:4174559459274058537 CommandIndex:28}.
-2024/06/03 05:34:01 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:27 PrevLogTerm:2 Entries:[] LeaderCommitIdx:27}.
-2024/06/03 05:34:01 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:27 PrevLogTerm:2 Entries:[] LeaderCommitIdx:27}.
-2024/06/03 05:34:01 [3]: Increment commitIdx from 26 to 27
-2024/06/03 05:34:01 [3]: Sent applyMsg {CommandValid:true Command:4174559459274058537 CommandIndex:28}.
-2024/06/03 05:34:01 [3]: Reply success.
-2024/06/03 05:34:01 [1]: Increment commitIdx from 26 to 27
-2024/06/03 05:34:01 [1]: Sent applyMsg {CommandValid:true Command:4174559459274058537 CommandIndex:28}.
-2024/06/03 05:34:01 [1]: Reply success.
-2024/06/03 05:34:01 [2]: Received command {Data:6446229026397560630 Term:2 Index:28} from client
-2024/06/03 05:34:02 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:27 PrevLogTerm:2 Entries:[{Data:6446229026397560630 Term:2 Index:28}] LeaderCommitIdx:27}.
-2024/06/03 05:34:02 [1]: Reply success.
-2024/06/03 05:34:02 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:27 PrevLogTerm:2 Entries:[{Data:6446229026397560630 Term:2 Index:28}] LeaderCommitIdx:27}.
-2024/06/03 05:34:02 [3]: Reply success.
-2024/06/03 05:34:02 [2]: Sent applyMsg {CommandValid:true Command:6446229026397560630 CommandIndex:29}.
-2024/06/03 05:34:02 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:28 PrevLogTerm:2 Entries:[] LeaderCommitIdx:28}.
-2024/06/03 05:34:02 [1]: Increment commitIdx from 27 to 28
-2024/06/03 05:34:02 [1]: Sent applyMsg {CommandValid:true Command:6446229026397560630 CommandIndex:29}.
-2024/06/03 05:34:02 [1]: Reply success.
-2024/06/03 05:34:02 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:28 PrevLogTerm:2 Entries:[] LeaderCommitIdx:28}.
-2024/06/03 05:34:02 [3]: Increment commitIdx from 27 to 28
-2024/06/03 05:34:02 [3]: Sent applyMsg {CommandValid:true Command:6446229026397560630 CommandIndex:29}.
-2024/06/03 05:34:02 [3]: Reply success.
-2024/06/03 05:34:02 [2]: Received command {Data:1719983905005502062 Term:2 Index:29} from client
-2024/06/03 05:34:02 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:28 PrevLogTerm:2 Entries:[{Data:1719983905005502062 Term:2 Index:29}] LeaderCommitIdx:28}.
-2024/06/03 05:34:02 [1]: Reply success.
-2024/06/03 05:34:02 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:28 PrevLogTerm:2 Entries:[{Data:1719983905005502062 Term:2 Index:29}] LeaderCommitIdx:28}.
-2024/06/03 05:34:02 [3]: Reply success.
-2024/06/03 05:34:02 [2]: Sent applyMsg {CommandValid:true Command:1719983905005502062 CommandIndex:30}.
-2024/06/03 05:34:02 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:29 PrevLogTerm:2 Entries:[] LeaderCommitIdx:29}.
-2024/06/03 05:34:02 [1]: Increment commitIdx from 28 to 29
-2024/06/03 05:34:02 [1]: Sent applyMsg {CommandValid:true Command:1719983905005502062 CommandIndex:30}.
-2024/06/03 05:34:02 [1]: Reply success.
-2024/06/03 05:34:02 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:29 PrevLogTerm:2 Entries:[] LeaderCommitIdx:29}.
-2024/06/03 05:34:02 [3]: Increment commitIdx from 28 to 29
-2024/06/03 05:34:02 [3]: Sent applyMsg {CommandValid:true Command:1719983905005502062 CommandIndex:30}.
-2024/06/03 05:34:02 [3]: Reply success.
-2024/06/03 05:34:02 [2]: Received command {Data:2524451949963192695 Term:2 Index:30} from client
-2024/06/03 05:34:03 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:29 PrevLogTerm:2 Entries:[{Data:2524451949963192695 Term:2 Index:30}] LeaderCommitIdx:29}.
-2024/06/03 05:34:03 [1]: Reply success.
-2024/06/03 05:34:03 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:29 PrevLogTerm:2 Entries:[{Data:2524451949963192695 Term:2 Index:30}] LeaderCommitIdx:29}.
-2024/06/03 05:34:03 [3]: Reply success.
-2024/06/03 05:34:03 [2]: Sent applyMsg {CommandValid:true Command:2524451949963192695 CommandIndex:31}.
-2024/06/03 05:34:03 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:30 PrevLogTerm:2 Entries:[] LeaderCommitIdx:30}.
-2024/06/03 05:34:03 [3]: Increment commitIdx from 29 to 30
-2024/06/03 05:34:03 [3]: Sent applyMsg {CommandValid:true Command:2524451949963192695 CommandIndex:31}.
-2024/06/03 05:34:03 [3]: Reply success.
-2024/06/03 05:34:03 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:30 PrevLogTerm:2 Entries:[] LeaderCommitIdx:30}.
-2024/06/03 05:34:03 [1]: Increment commitIdx from 29 to 30
-2024/06/03 05:34:03 [1]: Sent applyMsg {CommandValid:true Command:2524451949963192695 CommandIndex:31}.
-2024/06/03 05:34:03 [1]: Reply success.
-2024/06/03 05:34:03 [2]: Received command {Data:7688443037219933964 Term:2 Index:31} from client
-2024/06/03 05:34:03 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:30 PrevLogTerm:2 Entries:[{Data:7688443037219933964 Term:2 Index:31}] LeaderCommitIdx:30}.
-2024/06/03 05:34:03 [1]: Reply success.
-2024/06/03 05:34:03 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:30 PrevLogTerm:2 Entries:[{Data:7688443037219933964 Term:2 Index:31}] LeaderCommitIdx:30}.
-2024/06/03 05:34:03 [3]: Reply success.
-2024/06/03 05:34:03 [2]: Sent applyMsg {CommandValid:true Command:7688443037219933964 CommandIndex:32}.
-2024/06/03 05:34:04 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:31 PrevLogTerm:2 Entries:[] LeaderCommitIdx:31}.
-2024/06/03 05:34:04 [1]: Increment commitIdx from 30 to 31
-2024/06/03 05:34:04 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:31 PrevLogTerm:2 Entries:[] LeaderCommitIdx:31}.
-2024/06/03 05:34:04 [3]: Increment commitIdx from 30 to 31
-2024/06/03 05:34:04 [3]: Sent applyMsg {CommandValid:true Command:7688443037219933964 CommandIndex:32}.
-2024/06/03 05:34:04 [3]: Reply success.
-2024/06/03 05:34:04 [1]: Sent applyMsg {CommandValid:true Command:7688443037219933964 CommandIndex:32}.
-2024/06/03 05:34:04 [1]: Reply success.
-2024/06/03 05:34:04 [2]: Received command {Data:4914460850850057481 Term:2 Index:32} from client
-2024/06/03 05:34:04 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:31 PrevLogTerm:2 Entries:[{Data:4914460850850057481 Term:2 Index:32}] LeaderCommitIdx:31}.
-2024/06/03 05:34:04 [1]: Reply success.
-2024/06/03 05:34:04 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:31 PrevLogTerm:2 Entries:[{Data:4914460850850057481 Term:2 Index:32}] LeaderCommitIdx:31}.
-2024/06/03 05:34:04 [3]: Reply success.
-2024/06/03 05:34:04 [2]: Sent applyMsg {CommandValid:true Command:4914460850850057481 CommandIndex:33}.
-2024/06/03 05:34:04 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:32 PrevLogTerm:2 Entries:[] LeaderCommitIdx:32}.
-2024/06/03 05:34:04 [1]: Increment commitIdx from 31 to 32
-2024/06/03 05:34:04 [1]: Sent applyMsg {CommandValid:true Command:4914460850850057481 CommandIndex:33}.
-2024/06/03 05:34:04 [1]: Reply success.
-2024/06/03 05:34:04 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:32 PrevLogTerm:2 Entries:[] LeaderCommitIdx:32}.
-2024/06/03 05:34:04 [3]: Increment commitIdx from 31 to 32
-2024/06/03 05:34:04 [3]: Sent applyMsg {CommandValid:true Command:4914460850850057481 CommandIndex:33}.
-2024/06/03 05:34:04 [3]: Reply success.
-2024/06/03 05:34:04 [2]: Received command {Data:2451046473615775532 Term:2 Index:33} from client
-2024/06/03 05:34:04 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:32 PrevLogTerm:2 Entries:[{Data:2451046473615775532 Term:2 Index:33}] LeaderCommitIdx:32}.
-2024/06/03 05:34:04 [3]: Reply success.
-2024/06/03 05:34:04 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:32 PrevLogTerm:2 Entries:[{Data:2451046473615775532 Term:2 Index:33}] LeaderCommitIdx:32}.
-2024/06/03 05:34:04 [1]: Reply success.
-2024/06/03 05:34:04 [2]: Sent applyMsg {CommandValid:true Command:2451046473615775532 CommandIndex:34}.
-2024/06/03 05:34:04 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:33 PrevLogTerm:2 Entries:[] LeaderCommitIdx:33}.
-2024/06/03 05:34:04 [1]: Increment commitIdx from 32 to 33
-2024/06/03 05:34:04 [1]: Sent applyMsg {CommandValid:true Command:2451046473615775532 CommandIndex:34}.
-2024/06/03 05:34:04 [1]: Reply success.
-2024/06/03 05:34:04 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:33 PrevLogTerm:2 Entries:[] LeaderCommitIdx:33}.
-2024/06/03 05:34:04 [3]: Increment commitIdx from 32 to 33
-2024/06/03 05:34:04 [3]: Sent applyMsg {CommandValid:true Command:2451046473615775532 CommandIndex:34}.
-2024/06/03 05:34:04 [3]: Reply success.
-2024/06/03 05:34:04 [2]: Received command {Data:4048282007283527234 Term:2 Index:34} from client
-2024/06/03 05:34:05 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:33 PrevLogTerm:2 Entries:[{Data:4048282007283527234 Term:2 Index:34}] LeaderCommitIdx:33}.
-2024/06/03 05:34:05 [1]: Reply success.
-2024/06/03 05:34:05 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:33 PrevLogTerm:2 Entries:[{Data:4048282007283527234 Term:2 Index:34}] LeaderCommitIdx:33}.
-2024/06/03 05:34:05 [3]: Reply success.
-2024/06/03 05:34:05 [2]: Sent applyMsg {CommandValid:true Command:4048282007283527234 CommandIndex:35}.
-2024/06/03 05:34:05 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:34 PrevLogTerm:2 Entries:[] LeaderCommitIdx:34}.
-2024/06/03 05:34:05 [1]: Increment commitIdx from 33 to 34
-2024/06/03 05:34:05 [1]: Sent applyMsg {CommandValid:true Command:4048282007283527234 CommandIndex:35}.
-2024/06/03 05:34:05 [1]: Reply success.
-2024/06/03 05:34:05 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:34 PrevLogTerm:2 Entries:[] LeaderCommitIdx:34}.
-2024/06/03 05:34:05 [3]: Increment commitIdx from 33 to 34
-2024/06/03 05:34:05 [3]: Sent applyMsg {CommandValid:true Command:4048282007283527234 CommandIndex:35}.
-2024/06/03 05:34:05 [3]: Reply success.
-2024/06/03 05:34:05 [2]: Received command {Data:5870831977454823922 Term:2 Index:35} from client
-2024/06/03 05:34:05 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:34 PrevLogTerm:2 Entries:[{Data:5870831977454823922 Term:2 Index:35}] LeaderCommitIdx:34}.
-2024/06/03 05:34:05 [3]: Reply success.
-2024/06/03 05:34:05 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:34 PrevLogTerm:2 Entries:[{Data:5870831977454823922 Term:2 Index:35}] LeaderCommitIdx:34}.
-2024/06/03 05:34:05 [1]: Reply success.
-2024/06/03 05:34:05 [2]: Sent applyMsg {CommandValid:true Command:5870831977454823922 CommandIndex:36}.
-2024/06/03 05:34:06 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:35 PrevLogTerm:2 Entries:[] LeaderCommitIdx:35}.
-2024/06/03 05:34:06 [3]: Increment commitIdx from 34 to 35
-2024/06/03 05:34:06 [3]: Sent applyMsg {CommandValid:true Command:5870831977454823922 CommandIndex:36}.
-2024/06/03 05:34:06 [3]: Reply success.
-2024/06/03 05:34:06 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:35 PrevLogTerm:2 Entries:[] LeaderCommitIdx:35}.
-2024/06/03 05:34:06 [1]: Increment commitIdx from 34 to 35
-2024/06/03 05:34:06 [1]: Sent applyMsg {CommandValid:true Command:5870831977454823922 CommandIndex:36}.
-2024/06/03 05:34:06 [1]: Reply success.
-2024/06/03 05:34:06 [2]: Received command {Data:2561689625099293468 Term:2 Index:36} from client
-2024/06/03 05:34:06 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:35 PrevLogTerm:2 Entries:[{Data:2561689625099293468 Term:2 Index:36}] LeaderCommitIdx:35}.
-2024/06/03 05:34:06 [1]: Reply success.
-2024/06/03 05:34:06 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:35 PrevLogTerm:2 Entries:[{Data:2561689625099293468 Term:2 Index:36}] LeaderCommitIdx:35}.
-2024/06/03 05:34:06 [3]: Reply success.
-2024/06/03 05:34:06 [2]: Sent applyMsg {CommandValid:true Command:2561689625099293468 CommandIndex:37}.
-2024/06/03 05:34:06 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:36 PrevLogTerm:2 Entries:[] LeaderCommitIdx:36}.
-2024/06/03 05:34:06 [1]: Increment commitIdx from 35 to 36
-2024/06/03 05:34:06 [1]: Sent applyMsg {CommandValid:true Command:2561689625099293468 CommandIndex:37}.
-2024/06/03 05:34:06 [1]: Reply success.
-2024/06/03 05:34:06 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:36 PrevLogTerm:2 Entries:[] LeaderCommitIdx:36}.
-2024/06/03 05:34:06 [3]: Increment commitIdx from 35 to 36
-2024/06/03 05:34:06 [3]: Sent applyMsg {CommandValid:true Command:2561689625099293468 CommandIndex:37}.
-2024/06/03 05:34:06 [3]: Reply success.
-2024/06/03 05:34:06 [2]: Received command {Data:1638946515596728222 Term:2 Index:37} from client
-2024/06/03 05:34:07 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:36 PrevLogTerm:2 Entries:[{Data:1638946515596728222 Term:2 Index:37}] LeaderCommitIdx:36}.
-2024/06/03 05:34:07 [3]: Reply success.
-2024/06/03 05:34:07 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:36 PrevLogTerm:2 Entries:[{Data:1638946515596728222 Term:2 Index:37}] LeaderCommitIdx:36}.
-2024/06/03 05:34:07 [1]: Reply success.
-2024/06/03 05:34:07 [2]: Sent applyMsg {CommandValid:true Command:1638946515596728222 CommandIndex:38}.
-2024/06/03 05:34:07 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:37 PrevLogTerm:2 Entries:[] LeaderCommitIdx:37}.
-2024/06/03 05:34:07 [3]: Increment commitIdx from 36 to 37
-2024/06/03 05:34:07 [3]: Sent applyMsg {CommandValid:true Command:1638946515596728222 CommandIndex:38}.
-2024/06/03 05:34:07 [3]: Reply success.
-2024/06/03 05:34:07 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:37 PrevLogTerm:2 Entries:[] LeaderCommitIdx:37}.
-2024/06/03 05:34:07 [1]: Increment commitIdx from 36 to 37
-2024/06/03 05:34:07 [1]: Sent applyMsg {CommandValid:true Command:1638946515596728222 CommandIndex:38}.
-2024/06/03 05:34:07 [1]: Reply success.
-2024/06/03 05:34:07 [2]: Received command {Data:4018647810720009570 Term:2 Index:38} from client
-2024/06/03 05:34:07 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:37 PrevLogTerm:2 Entries:[{Data:4018647810720009570 Term:2 Index:38}] LeaderCommitIdx:37}.
-2024/06/03 05:34:07 [1]: Reply success.
-2024/06/03 05:34:07 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:37 PrevLogTerm:2 Entries:[{Data:4018647810720009570 Term:2 Index:38}] LeaderCommitIdx:37}.
-2024/06/03 05:34:07 [3]: Reply success.
-2024/06/03 05:34:07 [2]: Sent applyMsg {CommandValid:true Command:4018647810720009570 CommandIndex:39}.
-2024/06/03 05:34:07 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:38 PrevLogTerm:2 Entries:[] LeaderCommitIdx:38}.
-2024/06/03 05:34:07 [1]: Increment commitIdx from 37 to 38
-2024/06/03 05:34:07 [1]: Sent applyMsg {CommandValid:true Command:4018647810720009570 CommandIndex:39}.
-2024/06/03 05:34:07 [1]: Reply success.
-2024/06/03 05:34:07 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:38 PrevLogTerm:2 Entries:[] LeaderCommitIdx:38}.
-2024/06/03 05:34:07 [3]: Increment commitIdx from 37 to 38
-2024/06/03 05:34:07 [3]: Sent applyMsg {CommandValid:true Command:4018647810720009570 CommandIndex:39}.
-2024/06/03 05:34:07 [3]: Reply success.
-2024/06/03 05:34:07 [2]: Received command {Data:2821157987529607946 Term:2 Index:39} from client
-2024/06/03 05:34:08 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:38 PrevLogTerm:2 Entries:[{Data:2821157987529607946 Term:2 Index:39}] LeaderCommitIdx:38}.
-2024/06/03 05:34:08 [1]: Reply success.
-2024/06/03 05:34:08 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:38 PrevLogTerm:2 Entries:[{Data:2821157987529607946 Term:2 Index:39}] LeaderCommitIdx:38}.
-2024/06/03 05:34:08 [3]: Reply success.
-2024/06/03 05:34:08 [2]: Sent applyMsg {CommandValid:true Command:2821157987529607946 CommandIndex:40}.
-2024/06/03 05:34:08 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:39 PrevLogTerm:2 Entries:[] LeaderCommitIdx:39}.
-2024/06/03 05:34:08 [1]: Increment commitIdx from 38 to 39
-2024/06/03 05:34:08 [1]: Sent applyMsg {CommandValid:true Command:2821157987529607946 CommandIndex:40}.
-2024/06/03 05:34:08 [1]: Reply success.
-2024/06/03 05:34:08 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:39 PrevLogTerm:2 Entries:[] LeaderCommitIdx:39}.
-2024/06/03 05:34:08 [3]: Increment commitIdx from 38 to 39
-2024/06/03 05:34:08 [3]: Sent applyMsg {CommandValid:true Command:2821157987529607946 CommandIndex:40}.
-2024/06/03 05:34:08 [3]: Reply success.
-2024/06/03 05:34:08 [2]: Received command {Data:2996819896479823125 Term:2 Index:40} from client
-2024/06/03 05:34:08 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:39 PrevLogTerm:2 Entries:[{Data:2996819896479823125 Term:2 Index:40}] LeaderCommitIdx:39}.
-2024/06/03 05:34:08 [1]: Reply success.
-2024/06/03 05:34:08 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:39 PrevLogTerm:2 Entries:[{Data:2996819896479823125 Term:2 Index:40}] LeaderCommitIdx:39}.
-2024/06/03 05:34:08 [3]: Reply success.
-2024/06/03 05:34:08 [2]: Sent applyMsg {CommandValid:true Command:2996819896479823125 CommandIndex:41}.
-2024/06/03 05:34:09 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:40 PrevLogTerm:2 Entries:[] LeaderCommitIdx:40}.
-2024/06/03 05:34:09 [1]: Increment commitIdx from 39 to 40
-2024/06/03 05:34:09 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:40 PrevLogTerm:2 Entries:[] LeaderCommitIdx:40}.
-2024/06/03 05:34:09 [3]: Increment commitIdx from 39 to 40
-2024/06/03 05:34:09 [3]: Sent applyMsg {CommandValid:true Command:2996819896479823125 CommandIndex:41}.
-2024/06/03 05:34:09 [3]: Reply success.
-2024/06/03 05:34:09 [1]: Sent applyMsg {CommandValid:true Command:2996819896479823125 CommandIndex:41}.
-2024/06/03 05:34:09 [1]: Reply success.
-2024/06/03 05:34:09 [2]: Received command {Data:8966828001877514345 Term:2 Index:41} from client
-2024/06/03 05:34:09 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:40 PrevLogTerm:2 Entries:[{Data:8966828001877514345 Term:2 Index:41}] LeaderCommitIdx:40}.
-2024/06/03 05:34:09 [3]: Reply success.
-2024/06/03 05:34:09 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:40 PrevLogTerm:2 Entries:[{Data:8966828001877514345 Term:2 Index:41}] LeaderCommitIdx:40}.
-2024/06/03 05:34:09 [1]: Reply success.
-2024/06/03 05:34:09 [2]: Sent applyMsg {CommandValid:true Command:8966828001877514345 CommandIndex:42}.
-2024/06/03 05:34:09 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:41 PrevLogTerm:2 Entries:[] LeaderCommitIdx:41}.
-2024/06/03 05:34:09 [1]: Increment commitIdx from 40 to 41
-2024/06/03 05:34:09 [1]: Sent applyMsg {CommandValid:true Command:8966828001877514345 CommandIndex:42}.
-2024/06/03 05:34:09 [1]: Reply success.
-2024/06/03 05:34:09 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:41 PrevLogTerm:2 Entries:[] LeaderCommitIdx:41}.
-2024/06/03 05:34:09 [3]: Increment commitIdx from 40 to 41
-2024/06/03 05:34:09 [3]: Sent applyMsg {CommandValid:true Command:8966828001877514345 CommandIndex:42}.
-2024/06/03 05:34:09 [3]: Reply success.
-2024/06/03 05:34:09 [2]: Received command {Data:3356161773394971832 Term:2 Index:42} from client
-2024/06/03 05:34:10 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:41 PrevLogTerm:2 Entries:[{Data:3356161773394971832 Term:2 Index:42}] LeaderCommitIdx:41}.
-2024/06/03 05:34:10 [1]: Reply success.
-2024/06/03 05:34:10 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:41 PrevLogTerm:2 Entries:[{Data:3356161773394971832 Term:2 Index:42}] LeaderCommitIdx:41}.
-2024/06/03 05:34:10 [3]: Reply success.
-2024/06/03 05:34:10 [2]: Sent applyMsg {CommandValid:true Command:3356161773394971832 CommandIndex:43}.
-2024/06/03 05:34:10 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:42 PrevLogTerm:2 Entries:[] LeaderCommitIdx:42}.
-2024/06/03 05:34:10 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:42 PrevLogTerm:2 Entries:[] LeaderCommitIdx:42}.
-2024/06/03 05:34:10 [3]: Increment commitIdx from 41 to 42
-2024/06/03 05:34:10 [3]: Sent applyMsg {CommandValid:true Command:3356161773394971832 CommandIndex:43}.
-2024/06/03 05:34:10 [3]: Reply success.
-2024/06/03 05:34:10 [1]: Increment commitIdx from 41 to 42
-2024/06/03 05:34:10 [1]: Sent applyMsg {CommandValid:true Command:3356161773394971832 CommandIndex:43}.
-2024/06/03 05:34:10 [1]: Reply success.
-2024/06/03 05:34:10 [2]: Received command {Data:9122716328203663459 Term:2 Index:43} from client
-2024/06/03 05:34:10 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:42 PrevLogTerm:2 Entries:[{Data:9122716328203663459 Term:2 Index:43}] LeaderCommitIdx:42}.
-2024/06/03 05:34:10 [1]: Reply success.
-2024/06/03 05:34:10 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:42 PrevLogTerm:2 Entries:[{Data:9122716328203663459 Term:2 Index:43}] LeaderCommitIdx:42}.
-2024/06/03 05:34:10 [3]: Reply success.
-2024/06/03 05:34:10 [2]: Sent applyMsg {CommandValid:true Command:9122716328203663459 CommandIndex:44}.
-2024/06/03 05:34:10 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:43 PrevLogTerm:2 Entries:[] LeaderCommitIdx:43}.
-2024/06/03 05:34:10 [1]: Increment commitIdx from 42 to 43
-2024/06/03 05:34:10 [1]: Sent applyMsg {CommandValid:true Command:9122716328203663459 CommandIndex:44}.
-2024/06/03 05:34:10 [1]: Reply success.
-2024/06/03 05:34:10 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:43 PrevLogTerm:2 Entries:[] LeaderCommitIdx:43}.
-2024/06/03 05:34:10 [3]: Increment commitIdx from 42 to 43
-2024/06/03 05:34:10 [3]: Sent applyMsg {CommandValid:true Command:9122716328203663459 CommandIndex:44}.
-2024/06/03 05:34:10 [3]: Reply success.
-2024/06/03 05:34:10 [2]: Received command {Data:4251646669238506007 Term:2 Index:44} from client
-2024/06/03 05:34:10 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:43 PrevLogTerm:2 Entries:[{Data:4251646669238506007 Term:2 Index:44}] LeaderCommitIdx:43}.
-2024/06/03 05:34:10 [1]: Reply success.
-2024/06/03 05:34:10 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:43 PrevLogTerm:2 Entries:[{Data:4251646669238506007 Term:2 Index:44}] LeaderCommitIdx:43}.
-2024/06/03 05:34:10 [3]: Reply success.
-2024/06/03 05:34:10 [2]: Sent applyMsg {CommandValid:true Command:4251646669238506007 CommandIndex:45}.
-2024/06/03 05:34:11 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:44 PrevLogTerm:2 Entries:[] LeaderCommitIdx:44}.
-2024/06/03 05:34:11 [3]: Increment commitIdx from 43 to 44
-2024/06/03 05:34:11 [3]: Sent applyMsg {CommandValid:true Command:4251646669238506007 CommandIndex:45}.
-2024/06/03 05:34:11 [3]: Reply success.
-2024/06/03 05:34:11 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:44 PrevLogTerm:2 Entries:[] LeaderCommitIdx:44}.
-2024/06/03 05:34:11 [1]: Increment commitIdx from 43 to 44
-2024/06/03 05:34:11 [1]: Sent applyMsg {CommandValid:true Command:4251646669238506007 CommandIndex:45}.
-2024/06/03 05:34:11 [1]: Reply success.
-2024/06/03 05:34:11 [2]: Received command {Data:5027748624129880451 Term:2 Index:45} from client
-2024/06/03 05:34:11 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:44 PrevLogTerm:2 Entries:[{Data:5027748624129880451 Term:2 Index:45}] LeaderCommitIdx:44}.
-2024/06/03 05:34:11 [1]: Reply success.
-2024/06/03 05:34:11 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:44 PrevLogTerm:2 Entries:[{Data:5027748624129880451 Term:2 Index:45}] LeaderCommitIdx:44}.
-2024/06/03 05:34:11 [3]: Reply success.
-2024/06/03 05:34:11 [2]: Sent applyMsg {CommandValid:true Command:5027748624129880451 CommandIndex:46}.
-2024/06/03 05:34:12 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:45 PrevLogTerm:2 Entries:[] LeaderCommitIdx:45}.
-2024/06/03 05:34:12 [1]: Increment commitIdx from 44 to 45
-2024/06/03 05:34:12 [1]: Sent applyMsg {CommandValid:true Command:5027748624129880451 CommandIndex:46}.
-2024/06/03 05:34:12 [1]: Reply success.
-2024/06/03 05:34:12 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:45 PrevLogTerm:2 Entries:[] LeaderCommitIdx:45}.
-2024/06/03 05:34:12 [3]: Increment commitIdx from 44 to 45
-2024/06/03 05:34:12 [3]: Sent applyMsg {CommandValid:true Command:5027748624129880451 CommandIndex:46}.
-2024/06/03 05:34:12 [3]: Reply success.
-2024/06/03 05:34:12 [2]: Received command {Data:6626193637611011492 Term:2 Index:46} from client
-2024/06/03 05:34:12 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:45 PrevLogTerm:2 Entries:[{Data:6626193637611011492 Term:2 Index:46}] LeaderCommitIdx:45}.
-2024/06/03 05:34:12 [1]: Reply success.
-2024/06/03 05:34:12 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:45 PrevLogTerm:2 Entries:[{Data:6626193637611011492 Term:2 Index:46}] LeaderCommitIdx:45}.
-2024/06/03 05:34:12 [3]: Reply success.
-2024/06/03 05:34:12 [2]: Sent applyMsg {CommandValid:true Command:6626193637611011492 CommandIndex:47}.
-2024/06/03 05:34:12 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:46 PrevLogTerm:2 Entries:[] LeaderCommitIdx:46}.
-2024/06/03 05:34:12 [1]: Increment commitIdx from 45 to 46
-2024/06/03 05:34:12 [1]: Sent applyMsg {CommandValid:true Command:6626193637611011492 CommandIndex:47}.
-2024/06/03 05:34:12 [1]: Reply success.
-2024/06/03 05:34:12 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:46 PrevLogTerm:2 Entries:[] LeaderCommitIdx:46}.
-2024/06/03 05:34:12 [3]: Increment commitIdx from 45 to 46
-2024/06/03 05:34:12 [3]: Sent applyMsg {CommandValid:true Command:6626193637611011492 CommandIndex:47}.
-2024/06/03 05:34:12 [3]: Reply success.
-2024/06/03 05:34:12 [2]: Received command {Data:4275571872932664898 Term:2 Index:47} from client
-2024/06/03 05:34:12 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:46 PrevLogTerm:2 Entries:[{Data:4275571872932664898 Term:2 Index:47}] LeaderCommitIdx:46}.
-2024/06/03 05:34:12 [1]: Reply success.
-2024/06/03 05:34:12 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:46 PrevLogTerm:2 Entries:[{Data:4275571872932664898 Term:2 Index:47}] LeaderCommitIdx:46}.
-2024/06/03 05:34:12 [3]: Reply success.
-2024/06/03 05:34:12 [2]: Sent applyMsg {CommandValid:true Command:4275571872932664898 CommandIndex:48}.
-2024/06/03 05:34:13 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:47 PrevLogTerm:2 Entries:[] LeaderCommitIdx:47}.
-2024/06/03 05:34:13 [1]: Increment commitIdx from 46 to 47
-2024/06/03 05:34:13 [1]: Sent applyMsg {CommandValid:true Command:4275571872932664898 CommandIndex:48}.
-2024/06/03 05:34:13 [1]: Reply success.
-2024/06/03 05:34:13 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:47 PrevLogTerm:2 Entries:[] LeaderCommitIdx:47}.
-2024/06/03 05:34:13 [3]: Increment commitIdx from 46 to 47
-2024/06/03 05:34:13 [3]: Sent applyMsg {CommandValid:true Command:4275571872932664898 CommandIndex:48}.
-2024/06/03 05:34:13 [3]: Reply success.
-2024/06/03 05:34:13 [2]: Received command {Data:6927020189936864872 Term:2 Index:48} from client
-2024/06/03 05:34:13 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:47 PrevLogTerm:2 Entries:[{Data:6927020189936864872 Term:2 Index:48}] LeaderCommitIdx:47}.
-2024/06/03 05:34:13 [1]: Reply success.
-2024/06/03 05:34:13 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:47 PrevLogTerm:2 Entries:[{Data:6927020189936864872 Term:2 Index:48}] LeaderCommitIdx:47}.
-2024/06/03 05:34:13 [3]: Reply success.
-2024/06/03 05:34:13 [2]: Sent applyMsg {CommandValid:true Command:6927020189936864872 CommandIndex:49}.
-2024/06/03 05:34:13 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:48 PrevLogTerm:2 Entries:[] LeaderCommitIdx:48}.
-2024/06/03 05:34:13 [1]: Increment commitIdx from 47 to 48
-2024/06/03 05:34:13 [1]: Sent applyMsg {CommandValid:true Command:6927020189936864872 CommandIndex:49}.
-2024/06/03 05:34:13 [1]: Reply success.
-2024/06/03 05:34:13 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:48 PrevLogTerm:2 Entries:[] LeaderCommitIdx:48}.
-2024/06/03 05:34:13 [3]: Increment commitIdx from 47 to 48
-2024/06/03 05:34:13 [3]: Sent applyMsg {CommandValid:true Command:6927020189936864872 CommandIndex:49}.
-2024/06/03 05:34:13 [3]: Reply success.
-2024/06/03 05:34:13 [2]: Received command {Data:7181660173633054722 Term:2 Index:49} from client
-2024/06/03 05:34:13 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:48 PrevLogTerm:2 Entries:[{Data:7181660173633054722 Term:2 Index:49}] LeaderCommitIdx:48}.
-2024/06/03 05:34:13 [1]: Reply success.
-2024/06/03 05:34:13 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:48 PrevLogTerm:2 Entries:[{Data:7181660173633054722 Term:2 Index:49}] LeaderCommitIdx:48}.
-2024/06/03 05:34:13 [3]: Reply success.
-2024/06/03 05:34:13 [2]: Sent applyMsg {CommandValid:true Command:7181660173633054722 CommandIndex:50}.
-2024/06/03 05:34:14 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:49 PrevLogTerm:2 Entries:[] LeaderCommitIdx:49}.
-2024/06/03 05:34:14 [1]: Increment commitIdx from 48 to 49
-2024/06/03 05:34:14 [1]: Sent applyMsg {CommandValid:true Command:7181660173633054722 CommandIndex:50}.
-2024/06/03 05:34:14 [1]: Reply success.
-2024/06/03 05:34:14 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:49 PrevLogTerm:2 Entries:[] LeaderCommitIdx:49}.
-2024/06/03 05:34:14 [3]: Increment commitIdx from 48 to 49
-2024/06/03 05:34:14 [3]: Sent applyMsg {CommandValid:true Command:7181660173633054722 CommandIndex:50}.
-2024/06/03 05:34:14 [3]: Reply success.
-2024/06/03 05:34:14 [2]: Received command {Data:1420045095973423038 Term:2 Index:50} from client
-2024/06/03 05:34:14 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:49 PrevLogTerm:2 Entries:[{Data:1420045095973423038 Term:2 Index:50}] LeaderCommitIdx:49}.
-2024/06/03 05:34:14 [1]: Reply success.
-2024/06/03 05:34:14 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:49 PrevLogTerm:2 Entries:[{Data:1420045095973423038 Term:2 Index:50}] LeaderCommitIdx:49}.
-2024/06/03 05:34:14 [3]: Reply success.
-2024/06/03 05:34:14 [2]: Sent applyMsg {CommandValid:true Command:1420045095973423038 CommandIndex:51}.
-2024/06/03 05:34:15 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [1]: Increment commitIdx from 49 to 50
-2024/06/03 05:34:15 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [3]: Increment commitIdx from 49 to 50
-2024/06/03 05:34:15 [3]: Sent applyMsg {CommandValid:true Command:1420045095973423038 CommandIndex:51}.
-2024/06/03 05:34:15 [3]: Reply success.
-2024/06/03 05:34:15 [1]: Sent applyMsg {CommandValid:true Command:1420045095973423038 CommandIndex:51}.
-2024/06/03 05:34:15 [1]: Reply success.
-2024/06/03 05:34:15 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [3]: Reply success.
-2024/06/03 05:34:15 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [1]: Reply success.
-2024/06/03 05:34:15 [1]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [1]: Reply success.
-2024/06/03 05:34:15 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:15 [3]: Reply success.
-2024/06/03 05:34:15 [2]: Received command {Data:3774087611453508948 Term:2 Index:51} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5533759207750764901 Term:2 Index:52} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5091705088703140935 Term:2 Index:53} from client
-2024/06/03 05:34:15 [2]: Received command {Data:6676569886879501945 Term:2 Index:54} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1449774605718586289 Term:2 Index:55} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5407152938069627275 Term:2 Index:56} from client
-2024/06/03 05:34:15 [2]: Received command {Data:6241011168002455152 Term:2 Index:57} from client
-2024/06/03 05:34:15 [2]: Received command {Data:4390198411861750891 Term:2 Index:58} from client
-2024/06/03 05:34:15 [2]: Received command {Data:826721809186059898 Term:2 Index:59} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3159719256112534545 Term:2 Index:60} from client
-2024/06/03 05:34:15 [2]: Received command {Data:4526236376565784099 Term:2 Index:61} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5696515727427420055 Term:2 Index:62} from client
-2024/06/03 05:34:15 [2]: Received command {Data:2699678625183410410 Term:2 Index:63} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7964669520815053018 Term:2 Index:64} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7530210582289440064 Term:2 Index:65} from client
-2024/06/03 05:34:15 [2]: Received command {Data:165187071235838248 Term:2 Index:66} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5061092000265164370 Term:2 Index:67} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7428827796182382209 Term:2 Index:68} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3605812323585123564 Term:2 Index:69} from client
-2024/06/03 05:34:15 [2]: Received command {Data:2146894862888106247 Term:2 Index:70} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1121995137819805818 Term:2 Index:71} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7366141176453321118 Term:2 Index:72} from client
-2024/06/03 05:34:15 [2]: Received command {Data:531509919408848610 Term:2 Index:73} from client
-2024/06/03 05:34:15 [2]: Received command {Data:724448694901531152 Term:2 Index:74} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3761294117890404051 Term:2 Index:75} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3151806697134888403 Term:2 Index:76} from client
-2024/06/03 05:34:15 [2]: Received command {Data:323681809251814792 Term:2 Index:77} from client
-2024/06/03 05:34:15 [2]: Received command {Data:8744047043719366647 Term:2 Index:78} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3142499668681398430 Term:2 Index:79} from client
-2024/06/03 05:34:15 [2]: Received command {Data:6478590120763670267 Term:2 Index:80} from client
-2024/06/03 05:34:15 [2]: Received command {Data:2910848247303175099 Term:2 Index:81} from client
-2024/06/03 05:34:15 [2]: Received command {Data:137573920324179710 Term:2 Index:82} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1292294149219286140 Term:2 Index:83} from client
-2024/06/03 05:34:15 [2]: Received command {Data:4122020827556903228 Term:2 Index:84} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3557646239922534964 Term:2 Index:85} from client
-2024/06/03 05:34:15 [2]: Received command {Data:2446901955184368897 Term:2 Index:86} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3293467242952054852 Term:2 Index:87} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7118256268158457284 Term:2 Index:88} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1028331441435627283 Term:2 Index:89} from client
-2024/06/03 05:34:15 [2]: Received command {Data:8895158282865455940 Term:2 Index:90} from client
-2024/06/03 05:34:15 [2]: Received command {Data:7343868463004372585 Term:2 Index:91} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1066967787822426474 Term:2 Index:92} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5049494063878195048 Term:2 Index:93} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5852465456821691381 Term:2 Index:94} from client
-2024/06/03 05:34:15 [2]: Received command {Data:4663182450722047202 Term:2 Index:95} from client
-2024/06/03 05:34:15 [2]: Received command {Data:6735737089216062976 Term:2 Index:96} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5336766338265510551 Term:2 Index:97} from client
-2024/06/03 05:34:15 [2]: Received command {Data:1023446458529493868 Term:2 Index:98} from client
-2024/06/03 05:34:15 [2]: Received command {Data:5244735772429632081 Term:2 Index:99} from client
-2024/06/03 05:34:15 [2]: Received command {Data:3934913315054476435 Term:2 Index:100} from client
-2024/06/03 05:34:16 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:50 PrevLogTerm:2 Entries:[{Data:3774087611453508948 Term:2 Index:51} {Data:5533759207750764901 Term:2 Index:52} {Data:5091705088703140935 Term:2 Index:53} {Data:6676569886879501945 Term:2 Index:54} {Data:1449774605718586289 Term:2 Index:55} {Data:5407152938069627275 Term:2 Index:56} {Data:6241011168002455152 Term:2 Index:57} {Data:4390198411861750891 Term:2 Index:58} {Data:826721809186059898 Term:2 Index:59} {Data:3159719256112534545 Term:2 Index:60} {Data:4526236376565784099 Term:2 Index:61} {Data:5696515727427420055 Term:2 Index:62} {Data:2699678625183410410 Term:2 Index:63} {Data:7964669520815053018 Term:2 Index:64} {Data:7530210582289440064 Term:2 Index:65} {Data:165187071235838248 Term:2 Index:66} {Data:5061092000265164370 Term:2 Index:67} {Data:7428827796182382209 Term:2 Index:68} {Data:3605812323585123564 Term:2 Index:69} {Data:2146894862888106247 Term:2 Index:70} {Data:1121995137819805818 Term:2 Index:71} {Data:7366141176453321118 Term:2 Index:72} {Data:531509919408848610 Term:2 Index:73} {Data:724448694901531152 Term:2 Index:74} {Data:3761294117890404051 Term:2 Index:75} {Data:3151806697134888403 Term:2 Index:76} {Data:323681809251814792 Term:2 Index:77} {Data:8744047043719366647 Term:2 Index:78} {Data:3142499668681398430 Term:2 Index:79} {Data:6478590120763670267 Term:2 Index:80} {Data:2910848247303175099 Term:2 Index:81} {Data:137573920324179710 Term:2 Index:82} {Data:1292294149219286140 Term:2 Index:83} {Data:4122020827556903228 Term:2 Index:84} {Data:3557646239922534964 Term:2 Index:85} {Data:2446901955184368897 Term:2 Index:86} {Data:3293467242952054852 Term:2 Index:87} {Data:7118256268158457284 Term:2 Index:88} {Data:1028331441435627283 Term:2 Index:89} {Data:8895158282865455940 Term:2 Index:90} {Data:7343868463004372585 Term:2 Index:91} {Data:1066967787822426474 Term:2 Index:92} {Data:5049494063878195048 Term:2 Index:93} {Data:5852465456821691381 Term:2 Index:94} {Data:4663182450722047202 Term:2 Index:95} {Data:6735737089216062976 Term:2 Index:96} {Data:5336766338265510551 Term:2 Index:97} {Data:1023446458529493868 Term:2 Index:98} {Data:5244735772429632081 Term:2 Index:99} {Data:3934913315054476435 Term:2 Index:100}] LeaderCommitIdx:50}.
-2024/06/03 05:34:16 [3]: Reply success.
-2024/06/03 05:34:16 [3]: Receive AppendEntries message from 2 with args &{Term:2 LeaderId:2 PrevLogIdx:100 PrevLogTerm:2 Entries:[] LeaderCommitIdx:50}.
-2024/06/03 05:34:16 [3]: Reply success.
-2024/06/03 05:34:16 [4]: Received command {Data:734051177531232316 Term:1 Index:51} from client
-2024/06/03 05:34:16 [1]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0} {Data:1114390774885731929 Term:1 Index:1} {Data:3470153249369072826 Term:1 Index:2} {Data:1087386829737700032 Term:1 Index:3} {Data:8034841538069114001 Term:1 Index:4} {Data:6112533615387021390 Term:1 Index:5} {Data:6212375190193301681 Term:1 Index:6} {Data:6201947857587721757 Term:1 Index:7} {Data:5266695459268561267 Term:1 Index:8} {Data:7076554753613059979 Term:1 Index:9} {Data:4567338044680791434 Term:1 Index:10} {Data:3040014767590368851 Term:1 Index:11} {Data:8039303227228800151 Term:1 Index:12} {Data:2931859112378625000 Term:1 Index:13} {Data:704096534788882619 Term:1 Index:14} {Data:2992318865971761033 Term:1 Index:15} {Data:724582628659281920 Term:1 Index:16} {Data:5868643002001247953 Term:1 Index:17} {Data:3499590164841392656 Term:1 Index:18} {Data:4145851574006337032 Term:1 Index:19} {Data:7115524931599150478 Term:1 Index:20} {Data:247966043825459325 Term:1 Index:21} {Data:821549180360927870 Term:1 Index:22} {Data:8459989831069921919 Term:1 Index:23} {Data:9103496952851731822 Term:1 Index:24} {Data:6061165384066204264 Term:1 Index:25} {Data:893428696145144319 Term:1 Index:26} {Data:2968237569334325041 Term:1 Index:27} {Data:6466563869604295233 Term:1 Index:28} {Data:2781518064215722622 Term:1 Index:29} {Data:4757547219197216384 Term:1 Index:30} {Data:7538178704586969954 Term:1 Index:31} {Data:5491838515686134635 Term:1 Index:32} {Data:962365775187590059 Term:1 Index:33} {Data:6623173372210005425 Term:1 Index:34} {Data:2993576792216606484 Term:1 Index:35} {Data:1096075595728801752 Term:1 Index:36} {Data:2248519603942811321 Term:1 Index:37} {Data:683399197173506854 Term:1 Index:38} {Data:7025964321781429939 Term:1 Index:39} {Data:6008752272801063637 Term:1 Index:40} {Data:4995994109414601580 Term:1 Index:41} {Data:32327074052609330 Term:1 Index:42} {Data:3408613395657340433 Term:1 Index:43} {Data:809932869832438363 Term:1 Index:44} {Data:7688253824800988654 Term:1 Index:45} {Data:1587916261629412882 Term:1 Index:46} {Data:4444205880847743965 Term:1 Index:47} {Data:5054449611715697844 Term:1 Index:48} {Data:6077559435503077850 Term:1 Index:49} {Data:5330534272182854810 Term:1 Index:50} {Data:734051177531232316 Term:1 Index:51}] LeaderCommitIdx:0}.
-2024/06/03 05:34:16 [1]: Current term is larger than received term. currTerm=2, reqTerm=1
-2024/06/03 05:34:16 [0]: Receive AppendEntries message from 4 with args &{Term:1 LeaderId:4 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:6635643200375767156 Term:1 Index:0} {Data:1114390774885731929 Term:1 Index:1} {Data:3470153249369072826 Term:1 Index:2} {Data:1087386829737700032 Term:1 Index:3} {Data:8034841538069114001 Term:1 Index:4} {Data:6112533615387021390 Term:1 Index:5} {Data:6212375190193301681 Term:1 Index:6} {Data:6201947857587721757 Term:1 Index:7} {Data:5266695459268561267 Term:1 Index:8} {Data:7076554753613059979 Term:1 Index:9} {Data:4567338044680791434 Term:1 Index:10} {Data:3040014767590368851 Term:1 Index:11} {Data:8039303227228800151 Term:1 Index:12} {Data:2931859112378625000 Term:1 Index:13} {Data:704096534788882619 Term:1 Index:14} {Data:2992318865971761033 Term:1 Index:15} {Data:724582628659281920 Term:1 Index:16} {Data:5868643002001247953 Term:1 Index:17} {Data:3499590164841392656 Term:1 Index:18} {Data:4145851574006337032 Term:1 Index:19} {Data:7115524931599150478 Term:1 Index:20} {Data:247966043825459325 Term:1 Index:21} {Data:821549180360927870 Term:1 Index:22} {Data:8459989831069921919 Term:1 Index:23} {Data:9103496952851731822 Term:1 Index:24} {Data:6061165384066204264 Term:1 Index:25} {Data:893428696145144319 Term:1 Index:26} {Data:2968237569334325041 Term:1 Index:27} {Data:6466563869604295233 Term:1 Index:28} {Data:2781518064215722622 Term:1 Index:29} {Data:4757547219197216384 Term:1 Index:30} {Data:7538178704586969954 Term:1 Index:31} {Data:5491838515686134635 Term:1 Index:32} {Data:962365775187590059 Term:1 Index:33} {Data:6623173372210005425 Term:1 Index:34} {Data:2993576792216606484 Term:1 Index:35} {Data:1096075595728801752 Term:1 Index:36} {Data:2248519603942811321 Term:1 Index:37} {Data:683399197173506854 Term:1 Index:38} {Data:7025964321781429939 Term:1 Index:39} {Data:6008752272801063637 Term:1 Index:40} {Data:4995994109414601580 Term:1 Index:41} {Data:32327074052609330 Term:1 Index:42} {Data:3408613395657340433 Term:1 Index:43} {Data:809932869832438363 Term:1 Index:44} {Data:7688253824800988654 Term:1 Index:45} {Data:1587916261629412882 Term:1 Index:46} {Data:4444205880847743965 Term:1 Index:47} {Data:5054449611715697844 Term:1 Index:48} {Data:6077559435503077850 Term:1 Index:49} {Data:5330534272182854810 Term:1 Index:50} {Data:734051177531232316 Term:1 Index:51}] LeaderCommitIdx:0}.
-2024/06/03 05:34:16 [0]: Current term is larger than received term. currTerm=15, reqTerm=1
-2024/06/03 05:34:16 [4]: Receive a larger term from other peer. Converting back to follower...
-2024/06/03 05:34:17 [1]: Candidate [0] has lastLogTerm=1, but local lastLogTerm=2. Hence, rejected.
-2024/06/03 05:34:17 [4]: Candidate [0] has same lastLogTerm, but smaller lastLogIdx[50 < 51]. Hence, rejected.
-2024/06/03 05:34:18 [0]: Voted for 4 with term 17.
-2024/06/03 05:34:18 [1]: Candidate [4] has lastLogTerm=1, but local lastLogTerm=2. Hence, rejected.
-2024/06/03 05:34:20 [0]: Voted for 1 with term 18.
-2024/06/03 05:34:20 [4]: Voted for 1 with term 18.
-2024/06/03 05:34:20 [1]: Claimed to be leader.
-2024/06/03 05:34:20 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:49 PrevLogTerm:2 Entries:[{Data:1420045095973423038 Term:2 Index:50}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [4]: nextIdx=49
-2024/06/03 05:34:20 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:49 PrevLogTerm:2 Entries:[{Data:1420045095973423038 Term:2 Index:50}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [0]: nextIdx=49
-2024/06/03 05:34:20 [1]: Received command {Data:734051177531232316 Term:18 Index:51} from client
-2024/06/03 05:34:20 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:48 PrevLogTerm:2 Entries:[{Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [4]: nextIdx=48
-2024/06/03 05:34:20 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:48 PrevLogTerm:2 Entries:[{Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [0]: nextIdx=48
-2024/06/03 05:34:20 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:47 PrevLogTerm:2 Entries:[{Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [4]: nextIdx=47
-2024/06/03 05:34:20 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:47 PrevLogTerm:2 Entries:[{Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [0]: nextIdx=47
-2024/06/03 05:34:20 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:46 PrevLogTerm:2 Entries:[{Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [4]: nextIdx=46
-2024/06/03 05:34:20 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:46 PrevLogTerm:2 Entries:[{Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:20 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:20 [0]: nextIdx=46
-2024/06/03 05:34:21 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:45 PrevLogTerm:2 Entries:[{Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [0]: nextIdx=45
-2024/06/03 05:34:21 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:45 PrevLogTerm:2 Entries:[{Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [4]: nextIdx=45
-2024/06/03 05:34:21 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:44 PrevLogTerm:2 Entries:[{Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:44 PrevLogTerm:2 Entries:[{Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [4]: nextIdx=44
-2024/06/03 05:34:21 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [0]: nextIdx=44
-2024/06/03 05:34:21 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:43 PrevLogTerm:2 Entries:[{Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [4]: nextIdx=43
-2024/06/03 05:34:21 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:43 PrevLogTerm:2 Entries:[{Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [0]: nextIdx=43
-2024/06/03 05:34:21 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:42 PrevLogTerm:2 Entries:[{Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [4]: nextIdx=42
-2024/06/03 05:34:21 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:42 PrevLogTerm:2 Entries:[{Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [0]: nextIdx=42
-2024/06/03 05:34:21 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:41 PrevLogTerm:2 Entries:[{Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [4]: nextIdx=41
-2024/06/03 05:34:21 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:41 PrevLogTerm:2 Entries:[{Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:21 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:21 [0]: nextIdx=41
-2024/06/03 05:34:22 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:40 PrevLogTerm:2 Entries:[{Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [0]: nextIdx=40
-2024/06/03 05:34:22 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:40 PrevLogTerm:2 Entries:[{Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [4]: nextIdx=40
-2024/06/03 05:34:22 [1]: Received command {Data:734051177531232316 Term:18 Index:52} from client
-2024/06/03 05:34:22 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:39 PrevLogTerm:2 Entries:[{Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [0]: nextIdx=39
-2024/06/03 05:34:22 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:39 PrevLogTerm:2 Entries:[{Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [4]: nextIdx=39
-2024/06/03 05:34:22 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:38 PrevLogTerm:2 Entries:[{Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [4]: nextIdx=38
-2024/06/03 05:34:22 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:38 PrevLogTerm:2 Entries:[{Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [0]: nextIdx=38
-2024/06/03 05:34:22 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:37 PrevLogTerm:2 Entries:[{Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [0]: nextIdx=37
-2024/06/03 05:34:22 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:37 PrevLogTerm:2 Entries:[{Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [4]: nextIdx=37
-2024/06/03 05:34:22 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:36 PrevLogTerm:2 Entries:[{Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [4]: nextIdx=36
-2024/06/03 05:34:22 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:36 PrevLogTerm:2 Entries:[{Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:22 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:22 [0]: nextIdx=36
-2024/06/03 05:34:23 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:35 PrevLogTerm:2 Entries:[{Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [4]: nextIdx=35
-2024/06/03 05:34:23 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:35 PrevLogTerm:2 Entries:[{Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [0]: nextIdx=35
-2024/06/03 05:34:23 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:34 PrevLogTerm:2 Entries:[{Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:34 PrevLogTerm:2 Entries:[{Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [0]: nextIdx=34
-2024/06/03 05:34:23 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [4]: nextIdx=34
-2024/06/03 05:34:23 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:33 PrevLogTerm:2 Entries:[{Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [4]: nextIdx=33
-2024/06/03 05:34:23 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:33 PrevLogTerm:2 Entries:[{Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [0]: nextIdx=33
-2024/06/03 05:34:23 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:32 PrevLogTerm:2 Entries:[{Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [4]: nextIdx=32
-2024/06/03 05:34:23 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:32 PrevLogTerm:2 Entries:[{Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:23 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:23 [0]: nextIdx=32
-2024/06/03 05:34:24 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:31 PrevLogTerm:2 Entries:[{Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [4]: nextIdx=31
-2024/06/03 05:34:24 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:31 PrevLogTerm:2 Entries:[{Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [0]: nextIdx=31
-2024/06/03 05:34:24 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:30 PrevLogTerm:2 Entries:[{Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [4]: nextIdx=30
-2024/06/03 05:34:24 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:30 PrevLogTerm:2 Entries:[{Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [0]: nextIdx=30
-2024/06/03 05:34:24 [1]: Received command {Data:734051177531232316 Term:18 Index:53} from client
-2024/06/03 05:34:24 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:29 PrevLogTerm:2 Entries:[{Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [4]: nextIdx=29
-2024/06/03 05:34:24 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:29 PrevLogTerm:2 Entries:[{Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [0]: nextIdx=29
-2024/06/03 05:34:24 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:28 PrevLogTerm:2 Entries:[{Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [4]: nextIdx=28
-2024/06/03 05:34:24 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:28 PrevLogTerm:2 Entries:[{Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:24 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:24 [0]: nextIdx=28
-2024/06/03 05:34:25 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:27 PrevLogTerm:2 Entries:[{Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:25 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:25 [0]: nextIdx=27
-2024/06/03 05:34:25 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:27 PrevLogTerm:2 Entries:[{Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:25 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:25 [4]: nextIdx=27
-2024/06/03 05:34:25 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:26 PrevLogTerm:2 Entries:[{Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:25 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:25 [4]: nextIdx=26
-2024/06/03 05:34:25 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:26 PrevLogTerm:2 Entries:[{Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:25 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:25 [0]: nextIdx=26
-2024/06/03 05:34:26 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:25 PrevLogTerm:2 Entries:[{Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [4]: nextIdx=25
-2024/06/03 05:34:26 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:25 PrevLogTerm:2 Entries:[{Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [0]: nextIdx=25
-2024/06/03 05:34:26 [1]: Received command {Data:734051177531232316 Term:18 Index:54} from client
-2024/06/03 05:34:26 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:24 PrevLogTerm:2 Entries:[{Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [4]: nextIdx=24
-2024/06/03 05:34:26 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:24 PrevLogTerm:2 Entries:[{Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [0]: nextIdx=24
-2024/06/03 05:34:26 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:23 PrevLogTerm:2 Entries:[{Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [4]: nextIdx=23
-2024/06/03 05:34:26 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:23 PrevLogTerm:2 Entries:[{Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [0]: nextIdx=23
-2024/06/03 05:34:26 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:22 PrevLogTerm:2 Entries:[{Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [4]: nextIdx=22
-2024/06/03 05:34:26 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:22 PrevLogTerm:2 Entries:[{Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:26 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:26 [0]: nextIdx=22
-2024/06/03 05:34:27 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:21 PrevLogTerm:2 Entries:[{Data:6091657695715568496 Term:2 Index:22} {Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:27 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:27 [4]: nextIdx=21
-2024/06/03 05:34:27 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:21 PrevLogTerm:2 Entries:[{Data:6091657695715568496 Term:2 Index:22} {Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:27 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:27 [0]: nextIdx=21
-2024/06/03 05:34:27 [4]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:20 PrevLogTerm:2 Entries:[{Data:4287789297540438124 Term:2 Index:21} {Data:6091657695715568496 Term:2 Index:22} {Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:27 [4]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:27 [4]: nextIdx=20
-2024/06/03 05:34:27 [0]: Receive AppendEntries message from 1 with args &{Term:18 LeaderId:1 PrevLogIdx:20 PrevLogTerm:2 Entries:[{Data:4287789297540438124 Term:2 Index:21} {Data:6091657695715568496 Term:2 Index:22} {Data:6926798787931591040 Term:2 Index:23} {Data:5649179750942649505 Term:2 Index:24} {Data:3443043807411499732 Term:2 Index:25} {Data:1147510330755256207 Term:2 Index:26} {Data:4174559459274058537 Term:2 Index:27} {Data:6446229026397560630 Term:2 Index:28} {Data:1719983905005502062 Term:2 Index:29} {Data:2524451949963192695 Term:2 Index:30} {Data:7688443037219933964 Term:2 Index:31} {Data:4914460850850057481 Term:2 Index:32} {Data:2451046473615775532 Term:2 Index:33} {Data:4048282007283527234 Term:2 Index:34} {Data:5870831977454823922 Term:2 Index:35} {Data:2561689625099293468 Term:2 Index:36} {Data:1638946515596728222 Term:2 Index:37} {Data:4018647810720009570 Term:2 Index:38} {Data:2821157987529607946 Term:2 Index:39} {Data:2996819896479823125 Term:2 Index:40} {Data:8966828001877514345 Term:2 Index:41} {Data:3356161773394971832 Term:2 Index:42} {Data:9122716328203663459 Term:2 Index:43} {Data:4251646669238506007 Term:2 Index:44} {Data:5027748624129880451 Term:2 Index:45} {Data:6626193637611011492 Term:2 Index:46} {Data:4275571872932664898 Term:2 Index:47} {Data:6927020189936864872 Term:2 Index:48} {Data:7181660173633054722 Term:2 Index:49} {Data:1420045095973423038 Term:2 Index:50} {Data:734051177531232316 Term:18 Index:51} {Data:734051177531232316 Term:18 Index:52} {Data:734051177531232316 Term:18 Index:53} {Data:734051177531232316 Term:18 Index:54}] LeaderCommitIdx:50}.
-2024/06/03 05:34:27 [0]: prevLogTerm does not match. rf.prevLogTerm=1, args.prevLogTerm=2
-2024/06/03 05:34:27 [0]: nextIdx=20
---- FAIL: TestBackup2B (44.53s)
-    config.go:480: one(734051177531232316) failed to reach agreement
+Test (2B): no agreement if too many followers disconnect ...
+2024/06/17 08:29:11 [2]: Voted for 1 with term 1.
+2024/06/17 08:29:11 [4]: Voted for 1 with term 1.
+2024/06/17 08:29:11 [1]: Claimed to be leader.
+2024/06/17 08:29:11 [0]: Voted for 1 with term 1.
+2024/06/17 08:29:11 [3]: Voted for 1 with term 1.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [1]: Received command {Data:10 Term:1 Index:0} from client
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:10 Term:1 Index:0}] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:10 Term:1 Index:0}] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:10 Term:1 Index:0}] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:-1 PrevLogTerm:-1 Entries:[{Data:10 Term:1 Index:0}] LeaderCommitIdx:-1}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [1]: Found a larger majority match. Increment commitIdx to 0
+2024/06/17 08:29:11 [1]: Sent applyMsg {CommandValid:true Command:10 CommandIndex:1}.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [2]: Increment commitIdx from -1 to 0
+2024/06/17 08:29:11 [2]: Sent applyMsg {CommandValid:true Command:10 CommandIndex:1}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Increment commitIdx from -1 to 0
+2024/06/17 08:29:11 [3]: Sent applyMsg {CommandValid:true Command:10 CommandIndex:1}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Increment commitIdx from -1 to 0
+2024/06/17 08:29:11 [4]: Sent applyMsg {CommandValid:true Command:10 CommandIndex:1}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Increment commitIdx from -1 to 0
+2024/06/17 08:29:11 [0]: Sent applyMsg {CommandValid:true Command:10 CommandIndex:1}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [4]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [4]: Reply success.
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:11 [2]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [2]: Reply success.
+2024/06/17 08:29:11 [3]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [3]: Reply success.
+2024/06/17 08:29:11 [1]: Received command {Data:20 Term:1 Index:1} from client
+2024/06/17 08:29:11 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:0 PrevLogTerm:1 Entries:[{Data:20 Term:1 Index:1}] LeaderCommitIdx:0}.
+2024/06/17 08:29:11 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:0}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [1]: Found a larger majority match. Increment commitIdx to 1
+2024/06/17 08:29:12 [1]: Sent applyMsg {CommandValid:true Command:20 CommandIndex:2}.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Increment commitIdx from 0 to 1
+2024/06/17 08:29:12 [0]: Sent applyMsg {CommandValid:true Command:20 CommandIndex:2}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:12 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:12 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+2024/06/17 08:29:13 [0]: Receive AppendEntries message from 1 with args &{Term:1 LeaderId:1 PrevLogIdx:1 PrevLogTerm:1 Entries:[] LeaderCommitIdx:1}.
+2024/06/17 08:29:13 [0]: Reply success.
+--- FAIL: TestFailNoAgree2B (3.10s)
+    test_test.go:209: 2 committed but no majority
 FAIL
 exit status 1
-FAIL	_/workspaces/distributed_sys_labs/6.824/src/raft	44.533s
+FAIL	_/workspaces/distributed_sys_labs/6.824/src/raft	3.104s

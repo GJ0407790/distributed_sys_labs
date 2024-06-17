@@ -342,7 +342,7 @@ func TestRejoin2B(t *testing.T) {
 
 	// leader network failure
 	leader1 := cfg.checkOneLeader()
-	DPrintf("========= Leader 1 disconnected here =========")
+	DPrintf("========= Leader %d disconnected here =========", leader1)
 	cfg.disconnect(leader1)
 
 	// make old leader try to agree on some entries
@@ -356,7 +356,7 @@ func TestRejoin2B(t *testing.T) {
 
 	// new leader network failure
 	leader2 := cfg.checkOneLeader()
-	DPrintf("========= Leader 2 disconnected here =========")
+	DPrintf("========= Leader %d disconnected here =========", leader2)
 	cfg.disconnect(leader2)
 
 	// old leader connected again
@@ -388,6 +388,8 @@ func TestBackup2B(t *testing.T) {
 	cfg.disconnect((leader1 + 3) % servers)
 	cfg.disconnect((leader1 + 4) % servers)
 
+	DPrintf("=================%d, %d, %d disconnected================", (leader1+2)%servers, (leader1+3)%servers, (leader1+4)%servers)
+
 	// submit lots of commands that won't commit
 	for i := 0; i < 50; i++ {
 		cfg.rafts[leader1].Start(rand.Int())
@@ -397,11 +399,13 @@ func TestBackup2B(t *testing.T) {
 
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
+	DPrintf("=================%d, %d, %d reconnected================", (leader1+2)%servers, (leader1+3)%servers, (leader1+4)%servers)
 
 	// allow other partition to recover
 	cfg.connect((leader1 + 2) % servers)
 	cfg.connect((leader1 + 3) % servers)
 	cfg.connect((leader1 + 4) % servers)
+	DPrintf("=================%d, %d, %d reconnected================", (leader1+2)%servers, (leader1+3)%servers, (leader1+4)%servers)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {
@@ -415,6 +419,7 @@ func TestBackup2B(t *testing.T) {
 		other = (leader2 + 1) % servers
 	}
 	cfg.disconnect(other)
+	DPrintf("=================%d disconnected================", other)
 
 	// lots more commands that won't commit
 	for i := 0; i < 50; i++ {
@@ -430,6 +435,7 @@ func TestBackup2B(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	DPrintf("=================%d, %d, %d reconnected================", (leader1+2)%servers, (leader1+3)%servers, other)
 
 	// lots of successful commands to new group.
 	for i := 0; i < 50; i++ {

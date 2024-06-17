@@ -18,8 +18,8 @@ package raft
 //
 
 import (
-	"container/heap"
 	"math/rand"
+	"sort"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -31,8 +31,8 @@ import (
 // import "../labgob"
 
 const HeartbeatInterval = 100
-const MaxElectionInterval = 1200
-const MinElectionInterval = 1000
+const MaxElectionInterval = 700
+const MinElectionInterval = 500
 
 const (
 	Follower  = iota
@@ -116,7 +116,7 @@ type Raft struct {
 	lastReceived time.Time
 
 	// For Leader
-	lastSentAppend time.Time
+	lastSentAppend []time.Time
 }
 
 // return currentTerm and whether this server
@@ -436,7 +436,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 			nextIdx := prevLogIdx
 
-			for nextIdx > 0 && rf.logs[nextIdx].Term == prevLogTerm {
+			for nextIdx > 0 && rf.logs[nextIdx].Term == rf.logs[prevLogIdx].Term {
 				nextIdx -= 1
 			}
 
@@ -474,6 +474,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	DPrintf("[%d]: Reply success.", rf.me)
 	reply.Term = rf.currTerm
 	reply.Success = true
+	reply.NextIdx = len(rf.logs)
 	return
 }
 
@@ -483,7 +484,10 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 }
 
 func (rf *Raft) callHeartbeatPeer(peer int) {
-	if rf.state != Leader {
+	rf.mu.Lock()
+
+	if rf.state != Leader || rf.lastSentAppend[peer].After(time.Now()) {
+		rf.mu.Unlock()
 		return
 	}
 
@@ -511,13 +515,13 @@ func (rf *Raft) callHeartbeatPeer(peer int) {
 		Entries:         entries,
 		LeaderCommitIdx: rf.commitIdx,
 	}
-
+	rf.mu.Unlock()
 	reply := AppendEntriesReply{}
 	rf.sendAppendEntries(peer, &args, &reply)
 
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	rf.lastSentAppend = time.Now()
+	rf.lastSentAppend[peer] = time.Now()
 	if reply.Term > rf.currTerm {
 		DPrintf("[%d]: Receive a larger term from other peer. Converting back to follower...", rf.me)
 		rf.ConvertToFollower(reply.Term)
@@ -525,33 +529,24 @@ func (rf *Raft) callHeartbeatPeer(peer int) {
 		// Check the status of the reply
 		if reply.Success {
 			// increment the match and next index
-			rf.peersMatchIdx[peer] = len(rf.logs) - 1
-			rf.peersNextIdx[peer] = len(rf.logs)
+			rf.peersMatchIdx[peer] = reply.NextIdx - 1
+			rf.peersNextIdx[peer] = reply.NextIdx
 
-			// check how many match idx are larger than commitIdx
-			peerMatchIdx := &IntHeap{}
-			heap.Init(peerMatchIdx)
+			matchIdx := make([]int, len(rf.peersMatchIdx))
+			copy(matchIdx, rf.peersMatchIdx)
 
-			for _, matchIdx := range rf.peersMatchIdx {
-				heap.Push(peerMatchIdx, matchIdx)
+			sort.Ints(matchIdx)
+			DPrintf("[%d]: matchIdx=%+v", rf.me, matchIdx)
+			majorityMatch := matchIdx[(len(matchIdx)-1)/2]
+
+			if majorityMatch > rf.commitIdx && rf.logs[majorityMatch].Term == rf.currTerm {
+				DPrintf("[%d]: Found a larger majority match. Increment commitIdx to %d", rf.me, majorityMatch)
+
+				oldCommitIdx := rf.commitIdx
+				rf.commitIdx = majorityMatch
+
+				rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
 			}
-
-			count := 1
-			oldCommitIdx := rf.commitIdx
-			for peerMatchIdx.Len() > 0 {
-				top := heap.Pop(peerMatchIdx).(int)
-
-				if top > rf.commitIdx {
-					count++
-
-					if 2*count >= len(rf.peers) {
-						rf.commitIdx = top
-						break
-					}
-				}
-			}
-
-			rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
 
 		} else {
 			rf.peersNextIdx[peer] = reply.NextIdx
@@ -561,7 +556,6 @@ func (rf *Raft) callHeartbeatPeer(peer int) {
 }
 
 func (rf *Raft) callHeartbeat() {
-	rf.lastSentAppend = time.Now()
 	for index := 0; index < len(rf.peers); index++ {
 		if index == rf.me {
 			continue
@@ -574,7 +568,6 @@ func (rf *Raft) callHeartbeat() {
 
 func (rf *Raft) heartbeatRoutine() {
 	for {
-		startTime := time.Now()
 		time.Sleep(time.Duration(HeartbeatInterval) * time.Millisecond)
 
 		rf.mu.Lock()
@@ -586,9 +579,7 @@ func (rf *Raft) heartbeatRoutine() {
 			continue
 		}
 
-		if rf.lastSentAppend.Before(startTime) {
-			go rf.callHeartbeat()
-		}
+		go rf.callHeartbeat()
 
 		rf.mu.Unlock()
 	}
@@ -628,8 +619,9 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		}
 		DPrintf("[%d]: Received command %+v from client", rf.me, log)
 		rf.logs = append(rf.logs, log)
+		rf.peersMatchIdx[rf.me] = index
 	}
-
+	go rf.callHeartbeat()
 	return index + 1, term, isLeader
 }
 
@@ -680,7 +672,12 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.peersMatchIdx = make([]int, len(peers))
 
 	rf.lastReceived = time.Now()
-	rf.lastSentAppend = time.Now()
+	rf.lastSentAppend = make([]time.Time, len(peers))
+
+	curTime := time.Now()
+	for i := 0; i < len(peers); i++ {
+		rf.lastSentAppend[i] = curTime
+	}
 
 	// Start the goroutine here:
 	// 1. The heartbeat routine

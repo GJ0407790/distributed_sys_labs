@@ -18,21 +18,20 @@ package raft
 //
 
 import (
+	"bytes"
 	"math/rand"
 	"sort"
 	"sync"
 	"sync/atomic"
 	"time"
 
+	"../labgob"
 	"../labrpc"
 )
 
-// import "bytes"
-// import "../labgob"
-
-const HeartbeatInterval = 100
-const MaxElectionInterval = 700
-const MinElectionInterval = 500
+const HeartbeatInterval = 800
+const MaxElectionInterval = 1700
+const MinElectionInterval = 1500
 
 const (
 	Follower  = iota
@@ -40,26 +39,12 @@ const (
 	Candidate = iota
 )
 
-// An IntHeap is a max-heap of ints.
-type any = interface{}
-type IntHeap []int
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
 
-func (h IntHeap) Len() int           { return len(h) }
-func (h IntHeap) Less(i, j int) bool { return h[i] > h[j] }
-func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-
-func (h *IntHeap) Push(x any) {
-	// Push and Pop use pointer receivers because they modify the slice's length,
-	// not just its contents.
-	*h = append(*h, x.(int))
-}
-
-func (h *IntHeap) Pop() any {
-	old := *h
-	n := len(old)
-	x := old[n-1]
-	*h = old[0 : n-1]
-	return x
+	return y
 }
 
 func min(x, y int) int {
@@ -137,6 +122,8 @@ func (rf *Raft) ConvertToCandidate() {
 	rf.lastReceived = time.Now()
 	rf.votedFor = rf.me
 	rf.currTerm++
+	DPrintf("[%d]: Convert to candidate at term %d.", rf.me, rf.currTerm)
+	rf.persist()
 }
 
 func (rf *Raft) ConvertToFollower(newTerm int) {
@@ -144,17 +131,19 @@ func (rf *Raft) ConvertToFollower(newTerm int) {
 	rf.currTerm = newTerm
 	rf.votedFor = -1
 	rf.lastReceived = time.Now()
+
+	rf.persist()
 }
 
 func (rf *Raft) ConvertToLeader() {
 	rf.state = Leader
 	rf.lastReceived = time.Now()
 
-	DPrintf("[%d]: Claimed to be leader.", rf.me)
+	DPrintf("[%d]: Claimed to be leader for term %d.", rf.me, rf.currTerm)
 
 	// Reinitialize the nextIdx and matchIdx
 	for peer := 0; peer < len(rf.peers); peer++ {
-		rf.peersNextIdx[peer] = len(rf.logs) - 1
+		rf.peersNextIdx[peer] = len(rf.logs)
 		rf.peersMatchIdx[peer] = -1
 	}
 }
@@ -165,32 +154,46 @@ func (rf *Raft) ConvertToLeader() {
 func (rf *Raft) persist() {
 	// Your code here (2C).
 	// Example:
-	// w := new(bytes.Buffer)
-	// e := labgob.NewEncoder(w)
-	// e.Encode(rf.xxx)
-	// e.Encode(rf.yyy)
-	// data := w.Bytes()
-	// rf.persister.SaveRaftState(data)
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(rf.currTerm)
+	e.Encode(rf.votedFor)
+	e.Encode(rf.logs)
+
+	data := w.Bytes()
+	rf.persister.SaveRaftState(data)
 }
 
 // restore previously persisted state.
 func (rf *Raft) readPersist(data []byte) {
 	if data == nil || len(data) < 1 { // bootstrap without any state?
+		DPrintf("[%d]: Decoded failed because data is empty", rf.logs)
 		return
 	}
 	// Your code here (2C).
 	// Example:
-	// r := bytes.NewBuffer(data)
-	// d := labgob.NewDecoder(r)
-	// var xxx
-	// var yyy
-	// if d.Decode(&xxx) != nil ||
-	//    d.Decode(&yyy) != nil {
-	//   error...
-	// } else {
-	//   rf.xxx = xxx
-	//   rf.yyy = yyy
-	// }
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var curTerm int
+	var votedFor int
+	logs := make([]Log, 0)
+
+	if d.Decode(&curTerm) == nil &&
+		d.Decode(&votedFor) == nil {
+
+		d.Decode(&logs)
+		rf.currTerm = curTerm
+		rf.votedFor = votedFor
+		rf.logs = logs
+
+		DPrintf("[%d]: Decoded result, term=%d, votedFor=%d, logs=%+v.", rf.me, rf.currTerm, rf.votedFor, rf.logs)
+
+	} else {
+		DPrintf("[%d]: Decoded failed because one of the field is invalids", rf.logs)
+		rf.currTerm = 0
+		rf.votedFor = -1
+		rf.logs = logs
+	}
 }
 
 // example RequestVote RPC arguments structure.
@@ -260,6 +263,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		rf.votedFor = reqCandId
 		rf.lastReceived = time.Now()
 		reply.VoteGranted = true
+
+		rf.persist()
 	}
 
 	return
@@ -337,14 +342,15 @@ func (rf *Raft) startElection() {
 					return
 				}
 
-				if reply.VoteGranted {
+				if reply.VoteGranted && reply.Term == rf.currTerm {
+					DPrintf("[%d]: Received vote from %d at term %d", rf.me, p, reply.Term)
 					numVote++
 				}
 
 				_, isLeader := rf.GetState()
 				if !isLeader && (2*numVote >= len(rf.peers)) {
 					rf.ConvertToLeader()
-					go rf.callHeartbeat()
+					go rf.callHeartbeat(true)
 				}
 
 			}(peer)
@@ -385,9 +391,10 @@ type AppendEntriesArgs struct {
 }
 
 type AppendEntriesReply struct {
-	Term    int
-	Success bool
-	NextIdx int // index for fast log replication
+	Term     int
+	Success  bool
+	NextIdx  int // index for fast log replication
+	NextTerm int
 }
 
 func (rf *Raft) sendApplyMsg(startIdx, endIdx int) {
@@ -407,8 +414,10 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer DPrintf("[%d]: Reply success. %+v", rf.me, reply)
 
 	DPrintf("[%d]: Receive AppendEntries message from %d with args %+v.", rf.me, leaderId, args)
+	DPrintf("[%d]: Current logs = %+v", rf.me, rf.logs)
 
 	if rf.currTerm > reqTerm {
 		DPrintf("[%d]: Current term is larger than received term. currTerm=%d, reqTerm=%d", rf.me, rf.currTerm, reqTerm)
@@ -420,13 +429,25 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	rf.lastReceived = time.Now()
 	prevLogIdx, prevLogTerm := args.PrevLogIdx, args.PrevLogTerm
 
+	if rf.currTerm < reqTerm {
+		DPrintf("[%d]: Received term is larger than currTerm, converting to follower. currTerm=%d, reqTerm=%d", rf.me, rf.currTerm, reqTerm)
+		rf.ConvertToFollower(reqTerm)
+	}
+
 	if prevLogIdx >= 0 {
 		if len(rf.logs) <= prevLogIdx {
 			// the length does not match
 			DPrintf("[%d]: prevLogIdx does not match. len(rf.logs)=%d, args.prevLogIdx=%d", rf.me, len(rf.logs), prevLogIdx)
 			reply.Term = rf.currTerm
 			reply.Success = false
-			reply.NextIdx = len(rf.logs)
+			reply.NextIdx = 0
+			reply.NextTerm = -1
+
+			if len(rf.logs) > 0 {
+				reply.NextIdx = rf.logs[len(rf.logs)-1].Index + 1
+				reply.NextTerm = rf.logs[len(rf.logs)-1].Term
+			}
+
 			return
 		} else if rf.logs[prevLogIdx].Term != prevLogTerm {
 			// the term does not match
@@ -441,26 +462,34 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 			}
 
 			reply.NextIdx = nextIdx
-			DPrintf("[%d]: nextIdx=%d", rf.me, nextIdx)
+			reply.NextTerm = -1
+
+			if nextIdx > 0 {
+				reply.NextTerm = rf.logs[nextIdx].Term
+			}
+
 			return
 		}
-	}
-
-	if rf.currTerm < reqTerm {
-		DPrintf("[%d]: Received term is larger than currTerm, converting to follower. currTerm=%d, reqTerm=%d", rf.me, rf.currTerm, reqTerm)
-		rf.ConvertToFollower(reqTerm)
 	}
 
 	// Append the entries here
 	appendLogs := args.Entries
 
-	if len(appendLogs) > 0 {
-		startIdx := appendLogs[0].Index
-		// first delete all the entries after startIdx
-		rf.logs = rf.logs[:startIdx]
+	for _, appendLog := range appendLogs {
+		idx := appendLog.Index
 
-		// then append the entries to the current logs
-		rf.logs = append(rf.logs, appendLogs...)
+		if idx < len(rf.logs) {
+			if rf.logs[idx].Term != appendLog.Term {
+				rf.logs = rf.logs[:idx]
+				rf.logs = append(rf.logs, appendLog)
+			}
+		} else {
+			rf.logs = append(rf.logs, appendLog)
+		}
+	}
+
+	if len(appendLogs) > 0 {
+		rf.persist()
 	}
 
 	if args.LeaderCommitIdx > rf.commitIdx {
@@ -471,10 +500,15 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
 	}
 
-	DPrintf("[%d]: Reply success.", rf.me)
 	reply.Term = rf.currTerm
 	reply.Success = true
-	reply.NextIdx = len(rf.logs)
+	reply.NextIdx = 0
+	reply.NextTerm = -1
+
+	if len(rf.logs) > 0 {
+		reply.NextIdx = rf.logs[len(rf.logs)-1].Index + 1
+	}
+
 	return
 }
 
@@ -483,10 +517,10 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 	return ok
 }
 
-func (rf *Raft) callHeartbeatPeer(peer int) {
+func (rf *Raft) callHeartbeatPeer(peer int, isHeartbeat bool) {
 	rf.mu.Lock()
 
-	if rf.state != Leader || rf.lastSentAppend[peer].After(time.Now()) {
+	if rf.state != Leader || (isHeartbeat && rf.lastSentAppend[peer].After(time.Now())) {
 		rf.mu.Unlock()
 		return
 	}
@@ -498,12 +532,12 @@ func (rf *Raft) callHeartbeatPeer(peer int) {
 	}
 	entries := make([]Log, 0)
 
-	if 0 <= nextIdx && nextIdx < len(rf.logs) {
+	if nextIdx < len(rf.logs) {
 		// there are still entries yet to send
 		entries = rf.logs[nextIdx:]
 	}
 
-	if nextIdx > 0 {
+	if (nextIdx > 0) && (nextIdx-1 < len(rf.logs)) {
 		prevLog = rf.logs[nextIdx-1]
 	}
 
@@ -522,47 +556,70 @@ func (rf *Raft) callHeartbeatPeer(peer int) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	rf.lastSentAppend[peer] = time.Now()
+
 	if reply.Term > rf.currTerm {
 		DPrintf("[%d]: Receive a larger term from other peer. Converting back to follower...", rf.me)
 		rf.ConvertToFollower(reply.Term)
-	} else {
-		// Check the status of the reply
-		if reply.Success {
-			// increment the match and next index
-			rf.peersMatchIdx[peer] = reply.NextIdx - 1
-			rf.peersNextIdx[peer] = reply.NextIdx
-
-			matchIdx := make([]int, len(rf.peersMatchIdx))
-			copy(matchIdx, rf.peersMatchIdx)
-
-			sort.Ints(matchIdx)
-			DPrintf("[%d]: matchIdx=%+v", rf.me, matchIdx)
-			majorityMatch := matchIdx[(len(matchIdx)-1)/2]
-
-			if majorityMatch > rf.commitIdx && rf.logs[majorityMatch].Term == rf.currTerm {
-				DPrintf("[%d]: Found a larger majority match. Increment commitIdx to %d", rf.me, majorityMatch)
-
-				oldCommitIdx := rf.commitIdx
-				rf.commitIdx = majorityMatch
-
-				rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
-			}
-
-		} else {
-			rf.peersNextIdx[peer] = reply.NextIdx
-			go rf.callHeartbeatPeer(peer)
-		}
+		return
 	}
+
+	if reply.Term != args.Term {
+		return
+	}
+
+	// Check the status of the reply
+	if reply.Success {
+		// increment the match and next index
+		// rf.peersMatchIdx[peer] = max(reply.NextIdx-1, rf.peersMatchIdx[peer])
+		rf.peersNextIdx[peer] = min(reply.NextIdx, len(rf.logs))
+		rf.peersMatchIdx[peer] = rf.peersNextIdx[peer] - 1
+
+		matchIdx := make([]int, len(rf.peersMatchIdx))
+		copy(matchIdx, rf.peersMatchIdx)
+
+		if len(rf.logs) > 0 {
+			matchIdx[rf.me] = rf.logs[len(rf.logs)-1].Index
+		}
+
+		DPrintf("[%d]: matchIdx=%+v", rf.me, matchIdx)
+		DPrintf("[%d]: nextIdx=%+v", rf.me, rf.peersNextIdx)
+		sort.Ints(matchIdx)
+		majorityMatch := matchIdx[(len(matchIdx)-1)/2]
+
+		if majorityMatch > rf.commitIdx &&
+			majorityMatch < len(rf.logs) &&
+			rf.logs[majorityMatch].Term == rf.currTerm {
+			DPrintf("[%d]: Found a larger majority match. Increment commitIdx from %d to %d", rf.me, rf.commitIdx, majorityMatch)
+
+			oldCommitIdx := rf.commitIdx
+			rf.commitIdx = majorityMatch
+
+			rf.sendApplyMsg(oldCommitIdx, rf.commitIdx)
+		}
+
+	} else {
+		// nextTerm := reply.NextTerm
+		rf.peersNextIdx[peer] = reply.NextIdx
+
+		// if nextTerm >= 0 {
+		// 	for rf.peersNextIdx[peer] > 0 && rf.logs[rf.peersNextIdx[peer]].Term > nextTerm {
+		// 		rf.peersNextIdx[peer]--
+		// 	}
+		// }
+
+		go rf.callHeartbeatPeer(peer, false)
+	}
+
 }
 
-func (rf *Raft) callHeartbeat() {
+func (rf *Raft) callHeartbeat(isHeartbeat bool) {
 	for index := 0; index < len(rf.peers); index++ {
 		if index == rf.me {
 			continue
 		}
 
 		// DPrintf("[%d]: Sent heartbeat message to %d.", rf.me, index)
-		go rf.callHeartbeatPeer(index)
+		go rf.callHeartbeatPeer(index, isHeartbeat)
 	}
 }
 
@@ -579,7 +636,7 @@ func (rf *Raft) heartbeatRoutine() {
 			continue
 		}
 
-		go rf.callHeartbeat()
+		go rf.callHeartbeat(true)
 
 		rf.mu.Unlock()
 	}
@@ -619,9 +676,10 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		}
 		DPrintf("[%d]: Received command %+v from client", rf.me, log)
 		rf.logs = append(rf.logs, log)
-		rf.peersMatchIdx[rf.me] = index
+		rf.persist()
+
+		go rf.callHeartbeat(false)
 	}
-	go rf.callHeartbeat()
 	return index + 1, term, isLeader
 }
 

@@ -562,6 +562,7 @@ loop:
 }
 
 func TestPersist12C(t *testing.T) {
+	DPrintf("===================TestPersist12C===============================")
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -574,6 +575,7 @@ func TestPersist12C(t *testing.T) {
 	for i := 0; i < servers; i++ {
 		cfg.start1(i)
 	}
+
 	for i := 0; i < servers; i++ {
 		cfg.disconnect(i)
 		cfg.connect(i)
@@ -608,6 +610,7 @@ func TestPersist12C(t *testing.T) {
 }
 
 func TestPersist22C(t *testing.T) {
+	DPrintf("===================TestPersist22C===============================")
 	servers := 5
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -654,6 +657,7 @@ func TestPersist22C(t *testing.T) {
 }
 
 func TestPersist32C(t *testing.T) {
+	DPrintf("===================TestPersist32C===============================")
 	servers := 3
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -692,6 +696,7 @@ func TestPersist32C(t *testing.T) {
 // The leader in a new term may try to finish replicating log entries that
 // haven't been committed yet.
 func TestFigure82C(t *testing.T) {
+	DPrintf("===================TestFigure82C===============================")
 	servers := 5
 	cfg := make_config(t, servers, false)
 	defer cfg.cleanup()
@@ -748,6 +753,7 @@ func TestFigure82C(t *testing.T) {
 }
 
 func TestUnreliableAgree2C(t *testing.T) {
+	DPrintf("===================TestUnreliableAgree2C===============================")
 	servers := 5
 	cfg := make_config(t, servers, true)
 	defer cfg.cleanup()
@@ -770,6 +776,7 @@ func TestUnreliableAgree2C(t *testing.T) {
 	cfg.setunreliable(false)
 
 	wg.Wait()
+	DPrintf("=================Wait group done===================")
 
 	cfg.one(100, servers, true)
 
@@ -777,6 +784,7 @@ func TestUnreliableAgree2C(t *testing.T) {
 }
 
 func TestFigure8Unreliable2C(t *testing.T) {
+	DPrintf("===================TestFigure8Unreliable2C===============================")
 	servers := 5
 	cfg := make_config(t, servers, true)
 	defer cfg.cleanup()
@@ -832,7 +840,6 @@ func TestFigure8Unreliable2C(t *testing.T) {
 }
 
 func internalChurn(t *testing.T, unreliable bool) {
-
 	servers := 5
 	cfg := make_config(t, servers, unreliable)
 	defer cfg.cleanup()
@@ -977,9 +984,11 @@ func internalChurn(t *testing.T, unreliable bool) {
 }
 
 func TestReliableChurn2C(t *testing.T) {
+	DPrintf("===================TestReliableChurn2C===============================")
 	internalChurn(t, false)
 }
 
 func TestUnreliableChurn2C(t *testing.T) {
+	DPrintf("===================TestUnreliableChurn2C===============================")
 	internalChurn(t, true)
 }
